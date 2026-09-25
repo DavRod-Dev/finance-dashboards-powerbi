@@ -45,3 +45,4 @@ relationship b6adbc4f-b131-58fc-94e2-8e3691a2b3f5
 relationship ceffd5c1-9f3b-52a8-b3a2-a0728070b7db
 	fromColumn: asset_returns_long.date
 	toColumn: dim_date.Date
+

@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "7c45866865e14d993c27",
   "position": {
     "x": 856,
@@ -11,7 +11,6 @@
   },
   "visual": {
     "visualType": "scatterChart",
-    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Category": {
@@ -33,6 +32,24 @@
             }
           ]
         },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total assets"
+                }
+              },
+              "queryRef": "_Measures.Total assets",
+              "nativeQueryRef": "Total assets"
+            }
+          ]
+        },
         "X": {
           "projections": [
             {
@@ -47,7 +64,8 @@
                 }
               },
               "queryRef": "_Measures.Avg ROA percentile",
-              "nativeQueryRef": "Avg ROA percentile"
+              "nativeQueryRef": "Avg ROA percentile",
+              "active": true
             }
           ]
         },
@@ -66,24 +84,6 @@
               },
               "queryRef": "_Measures.Avg net margin percentile",
               "nativeQueryRef": "Avg net margin percentile"
-            }
-          ]
-        },
-        "Size": {
-          "projections": [
-            {
-              "field": {
-                "Measure": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "_Measures"
-                    }
-                  },
-                  "Property": "Total assets"
-                }
-              },
-              "queryRef": "_Measures.Total assets",
-              "nativeQueryRef": "Total assets"
             }
           ]
         }
@@ -110,6 +110,7 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
   }
 }

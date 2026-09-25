@@ -36,3 +36,4 @@ table monthly_returns_long
 				    Source
 
 	annotation PBI_ResultType = Table
+

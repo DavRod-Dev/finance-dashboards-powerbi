@@ -1,5 +1,5 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "87f913b05ef8f6d976de",
   "position": {
     "x": 24,
@@ -11,7 +11,6 @@
   },
   "visual": {
     "visualType": "tableEx",
-    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
         "Values": {
@@ -256,6 +255,193 @@
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "ba5a04840e0132d35209",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_company"
+              }
+            },
+            "Property": "filer_name"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "a10fcc5c0b7b8b2c5b3b",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_fiscal_year"
+              }
+            },
+            "Property": "fiscal_year"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "325dfc9494795102e1ae",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "f_score_partial"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "59c97d1e9c551dda97a0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "signals_available"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1f42c6c601b97512db6c",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "s_roa_positive"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "f01c5880b09614b82056",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "s_ocf_positive"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "a0b663fccc7c8bc52b68",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "s_roa_improved"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "1b0cdd1276e08a0286db",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "s_accruals"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "cefb8371dceea09359a0",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "s_leverage_fell"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "bd0df695119b4e15c000",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "s_liquidity_rose"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "ac963c47876582271067",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "s_no_dilution"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "480f35d3009004c02984",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "s_margin_rose"
+          }
+        },
+        "type": "Advanced"
+      },
+      {
+        "name": "326c3420e8bb323c6519",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "piotroski_f_score"
+              }
+            },
+            "Property": "s_turnover_rose"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

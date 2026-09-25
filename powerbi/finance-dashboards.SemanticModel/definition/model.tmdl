@@ -10,6 +10,8 @@ annotation PBI_QueryOrder = ["DataFolder", "dim_company", "dim_fiscal_year", "di
 
 annotation __PBI_TimeIntelligenceEnabled = 0
 
+annotation PBI_ProTooling = ["DevMode"]
+
 ref table dim_company
 ref table dim_fiscal_year
 ref table dim_date
@@ -26,3 +28,4 @@ ref table summary_metrics
 ref table tail_risk
 ref table correlation_long
 ref table _Measures
+

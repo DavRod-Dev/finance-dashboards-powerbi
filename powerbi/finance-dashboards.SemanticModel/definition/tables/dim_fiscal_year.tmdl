@@ -23,3 +23,4 @@ table dim_fiscal_year
 				    Typed
 
 	annotation PBI_ResultType = Table
+

@@ -54,13 +54,12 @@ table fundamentals_annual
 
 	column fiscal_year_end
 		dataType: dateTime
+		formatString: General Date
 		lineageTag: 539f71fc-880c-5858-8e93-3fdf6ac48a42
 		summarizeBy: none
 		sourceColumn: fiscal_year_end
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column revenue
 		dataType: double
@@ -226,13 +225,12 @@ table fundamentals_annual
 
 	column source_filed
 		dataType: dateTime
+		formatString: General Date
 		lineageTag: d15633dd-ebcf-5f04-b9ad-67b110fc7784
 		summarizeBy: none
 		sourceColumn: source_filed
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column sector
 		dataType: string
@@ -251,3 +249,4 @@ table fundamentals_annual
 				    Source
 
 	annotation PBI_ResultType = Table
+

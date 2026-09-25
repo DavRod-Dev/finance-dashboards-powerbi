@@ -89,3 +89,4 @@ table dim_date
 				    YearMonthKey
 
 	annotation PBI_ResultType = Table
+

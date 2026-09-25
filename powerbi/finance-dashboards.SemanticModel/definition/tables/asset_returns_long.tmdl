@@ -5,13 +5,12 @@ table asset_returns_long
 	column date
 		dataType: dateTime
 		isHidden
+		formatString: General Date
 		lineageTag: 09691c1d-0383-5aa0-8c9a-cd3fda22b363
 		summarizeBy: none
 		sourceColumn: date
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column asset_id
 		dataType: string
@@ -48,3 +47,4 @@ table asset_returns_long
 				    Source
 
 	annotation PBI_ResultType = Table
+

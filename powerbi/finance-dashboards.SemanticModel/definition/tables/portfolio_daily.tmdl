@@ -5,13 +5,12 @@ table portfolio_daily
 	column date
 		dataType: dateTime
 		isHidden
+		formatString: General Date
 		lineageTag: ae875d36-87f2-59f9-8146-b394ea982ee7
 		summarizeBy: none
 		sourceColumn: date
 
 		annotation SummarizationSetBy = Automatic
-
-		annotation UnderlyingDateTimeDataType = Date
 
 	column portfolio_return
 		dataType: double
@@ -76,3 +75,4 @@ table portfolio_daily
 				    Source
 
 	annotation PBI_ResultType = Table
+
