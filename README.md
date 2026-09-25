@@ -58,17 +58,27 @@ Desktop's table renderer, and that every measure has a description, a
 display folder and a format string. The committed data is validated the
 same way: grain, keys, foreign keys, score ranges — 36 tests in all.
 
-Rebuild after the upstream repos change:
+## Quickstart
 
 ```bash
-python scripts/export_dataset.py     # needs the sibling repos next to this one
-python scripts/build_pbip.py         # rewrites powerbi/
-pytest                               # 36 tests
+git clone https://github.com/davrod-dev/finance-dashboards-powerbi
+cd finance-dashboards-powerbi
+pip install -r requirements.txt      # duckdb, pandas, pyarrow, pytest
+pytest                               # 36 tests over the committed data and a regenerated project
+python scripts/build_pbip.py         # rewrites powerbi/ from data/*.parquet
 ```
 
-Then open `powerbi/finance-dashboards.pbip` in Power BI Desktop and
-**Refresh**. The one machine-specific value is the `DataFolder` parameter
-(absolute path of `data/`), under Transform data > Manage parameters.
+Then open `powerbi/finance-dashboards.pbip` in Power BI Desktop (free, from
+the Microsoft Store) and **Refresh**. The export step needs the three
+sibling repositories cloned next to this one with their data built:
+
+```bash
+python scripts/export_dataset.py     # rewrites data/ from ../market-data-warehouse etc.
+```
+
+The one machine-specific value is the `DataFolder` parameter (absolute
+path of `data/`), under Transform data > Manage parameters; `build_pbip.py`
+sets it to this clone's `data/` folder.
 
 ## Dataset
 
