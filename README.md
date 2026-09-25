@@ -25,10 +25,10 @@ static copy.
 
 | page | what it shows | notable |
 |---|---|---|
-| **Fundamentals screen** | every US filer in the SEC Financial Statement Data Sets (2025q1–q4): 5,505 filers; slicers for sector, fiscal year, SEC size class; F-score distribution; Altman zone share by sector; ROA-vs-margin percentile scatter; a sortable table of filers with all nine Piotroski signals | only 73 filer-years have a full nine-signal F-score, so the page uses a *partial* score (sum of available signals) and says so |
-| **Company detail** | pick one filer: revenue, net income and cash flow by year in $M; partial F-score by year; DuPont decomposition; percentile within SIC peers | every measure on the page returns blank unless exactly one filer is in context — the page cannot accidentally show an average of six thousand companies |
+| **Fundamentals screen** | every US filer in the SEC Financial Statement Data Sets (2025q1–q4): 5,505 filers; slicers for sector, fiscal year, SEC size class; F-score distribution; Altman zone share by sector; ROA-vs-margin percentile scatter; a sortable table of filers with all nine Piotroski signals as green/red cells | only 73 filer-years have a full nine-signal F-score, so the page uses a *partial* score (sum of available signals) and says so; right-click any filer to drill through to its detail page |
+| **Company detail** | drill-through target (or pick a filer): latest-year revenue, net income, cash flow, ROE; revenue/income/cash flow by year in $M; partial F-score by year; DuPont decomposition; percentile within SIC peers | every measure on the page returns blank unless exactly one filer is in context — the page cannot accidentally show an average of six thousand companies |
 | **Portfolio risk** | the multi-asset proxy book from portfolio-risk-report: annualised return, volatility, Sharpe, max drawdown, VaR and CVaR; growth of 1 vs S&P 500; drawdown from peak; Euler risk contribution vs weight | matches the HTML report to the digit (10.9 % return, 12.7 % vol, 0.57 Sharpe, −24.5 % max drawdown) |
-| **Correlation & calendar** | correlation matrix of daily returns; monthly return grid by year; date-range slicer with return-in-period | totals are switched off on both matrices: a sum of correlations is not a number |
+| **Correlation & calendar** | correlation heat-map of daily returns (blue −1, white 0, red +1); monthly return grid by year coloured red/green; date-range slicer with return-in-period | totals are switched off on both matrices: a sum of correlations is not a number |
 
 ## How it is built
 
@@ -145,6 +145,16 @@ screen, fixed in the generator and locked in by a test.
    in the by-year charts.
 5. **Subtotals are noise for matrices of ratios.** Off on both.
 6. **Slicers need about 60 px of height** to show their dropdown.
+7. **A conditional-format rule is a query projection.** The `Input` of a
+   `FillRule` is added to the visual's query, and the engine rejects a bare
+   column there ("Projection at index 13 is invalid"); column inputs must be
+   wrapped in an aggregation, and the selector needs Desktop's
+   `dataViewWildcard` entry or the rule is silently ignored.
+8. **Drill-through is two things**: a page-level `Categorical` filter with
+   `howCreated: "Drillthrough"` and a `pageBinding` of type `Drillthrough`
+   whose parameter binds that filter to `dim_company[filer_name]`. With
+   both, "Drill through > Company detail" appears on any visual that carries
+   the filer.
 
 ## Why Power BI, and how it transfers
 

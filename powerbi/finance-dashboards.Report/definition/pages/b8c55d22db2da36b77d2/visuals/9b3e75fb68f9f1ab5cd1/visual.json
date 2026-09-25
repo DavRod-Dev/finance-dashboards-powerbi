@@ -6,7 +6,7 @@
     "y": 12,
     "z": 0,
     "height": 40,
-    "width": 800,
+    "width": 1100,
     "tabOrder": 0
   },
   "visual": {
@@ -19,7 +19,7 @@
               {
                 "textRuns": [
                   {
-                    "value": "Company detail - pick a filer",
+                    "value": "Company detail - pick a filer, or drill through from the fundamentals screen",
                     "textStyle": {
                       "fontFamily": "Segoe UI Semibold",
                       "fontSize": "18pt",

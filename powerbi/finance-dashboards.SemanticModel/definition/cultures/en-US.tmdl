@@ -1,0 +1,557 @@
+cultureInfo en-US
+
+	linguisticMetadata =
+			{
+			  "Version": "2.0.0",
+			  "Language": "en-US",
+			  "Entities": {
+			    "dim_company.filer_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_company",
+			          "ConceptualProperty": "filer_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Filer": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "dim_fiscal_year.fiscal_year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "dim_fiscal_year",
+			          "ConceptualProperty": "fiscal_year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Year": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.f_score_partial": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "f_score_partial"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Partial F": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.signals_available": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "signals_available"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Signals": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.s_roa_positive": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "s_roa_positive"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ROA > 0": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.s_ocf_positive": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "s_ocf_positive"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "OCF > 0": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.s_roa_improved": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "s_roa_improved"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ROA up": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.s_accruals": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "s_accruals"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "OCF > NI": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.s_leverage_fell": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "s_leverage_fell"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Lev. down": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.s_liquidity_rose": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "s_liquidity_rose"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Liq. up": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.s_no_dilution": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "s_no_dilution"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "No dilution": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.s_margin_rose": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "s_margin_rose"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Margin up": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "piotroski_f_score.s_turnover_rose": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "piotroski_f_score",
+			          "ConceptualProperty": "s_turnover_rose"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Turnover up": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.avg_net_margin_percentile_filer": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Avg net margin percentile (filer)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Net margin pctile": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.avg_roa_percentile_filer": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Avg ROA percentile (filer)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ROA pctile": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.avg_fcf_margin_percentile_filer": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Avg FCF margin percentile (filer)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "FCF margin pctile": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.dupont_net_margin_filer": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "DuPont net margin (filer)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Net margin": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.asset_turnover_filer": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Asset turnover (filer)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Asset turnover": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.equity_multiplier_filer": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Equity multiplier (filer)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Equity multiplier": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.roe_filer": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "ROE (filer)"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "ROE": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "table_measures.standalone_volatility": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "_Measures",
+			          "ConceptualProperty": "Stand-alone volatility"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Volatility": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "risk_contributions.asset": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "risk_contributions",
+			          "ConceptualProperty": "asset"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Asset": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "monthly_returns_long.year": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "monthly_returns_long",
+			          "ConceptualProperty": "year"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Year": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "monthly_returns_long.month_name": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "monthly_returns_long",
+			          "ConceptualProperty": "month_name"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Month": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "correlation_long.asset_a_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "correlation_long",
+			          "ConceptualProperty": "asset_a_label"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "Asset": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    },
+			    "correlation_long.asset_b_label": {
+			      "Definition": {
+			        "Binding": {
+			          "ConceptualEntity": "correlation_long",
+			          "ConceptualProperty": "asset_b_label"
+			        }
+			      },
+			      "State": "Generated",
+			      "Terms": [
+			        {
+			          "vs": {
+			            "State": "Suggested",
+			            "Source": {
+			              "Type": "External",
+			              "Agent": "PowerBI.VisualColumnRename"
+			            },
+			            "Weight": 0.9
+			          }
+			        }
+			      ]
+			    }
+			  }
+			}
+		contentType: json
+

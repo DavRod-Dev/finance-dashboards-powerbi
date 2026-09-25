@@ -27,7 +27,8 @@
                 }
               },
               "queryRef": "dim_company.filer_name",
-              "nativeQueryRef": "filer_name"
+              "nativeQueryRef": "filer_name",
+              "displayName": "Filer"
             },
             {
               "field": {
@@ -41,7 +42,8 @@
                 }
               },
               "queryRef": "dim_fiscal_year.fiscal_year",
-              "nativeQueryRef": "fiscal_year"
+              "nativeQueryRef": "fiscal_year",
+              "displayName": "Year"
             },
             {
               "field": {
@@ -55,7 +57,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.f_score_partial",
-              "nativeQueryRef": "f_score_partial"
+              "nativeQueryRef": "f_score_partial",
+              "displayName": "Partial F"
             },
             {
               "field": {
@@ -69,7 +72,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.signals_available",
-              "nativeQueryRef": "signals_available"
+              "nativeQueryRef": "signals_available",
+              "displayName": "Signals"
             },
             {
               "field": {
@@ -83,7 +87,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.s_roa_positive",
-              "nativeQueryRef": "s_roa_positive"
+              "nativeQueryRef": "s_roa_positive",
+              "displayName": "ROA > 0"
             },
             {
               "field": {
@@ -97,7 +102,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.s_ocf_positive",
-              "nativeQueryRef": "s_ocf_positive"
+              "nativeQueryRef": "s_ocf_positive",
+              "displayName": "OCF > 0"
             },
             {
               "field": {
@@ -111,7 +117,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.s_roa_improved",
-              "nativeQueryRef": "s_roa_improved"
+              "nativeQueryRef": "s_roa_improved",
+              "displayName": "ROA up"
             },
             {
               "field": {
@@ -125,7 +132,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.s_accruals",
-              "nativeQueryRef": "s_accruals"
+              "nativeQueryRef": "s_accruals",
+              "displayName": "OCF > NI"
             },
             {
               "field": {
@@ -139,7 +147,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.s_leverage_fell",
-              "nativeQueryRef": "s_leverage_fell"
+              "nativeQueryRef": "s_leverage_fell",
+              "displayName": "Lev. down"
             },
             {
               "field": {
@@ -153,7 +162,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.s_liquidity_rose",
-              "nativeQueryRef": "s_liquidity_rose"
+              "nativeQueryRef": "s_liquidity_rose",
+              "displayName": "Liq. up"
             },
             {
               "field": {
@@ -167,7 +177,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.s_no_dilution",
-              "nativeQueryRef": "s_no_dilution"
+              "nativeQueryRef": "s_no_dilution",
+              "displayName": "No dilution"
             },
             {
               "field": {
@@ -181,7 +192,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.s_margin_rose",
-              "nativeQueryRef": "s_margin_rose"
+              "nativeQueryRef": "s_margin_rose",
+              "displayName": "Margin up"
             },
             {
               "field": {
@@ -195,7 +207,8 @@
                 }
               },
               "queryRef": "piotroski_f_score.s_turnover_rose",
-              "nativeQueryRef": "s_turnover_rose"
+              "nativeQueryRef": "s_turnover_rose",
+              "displayName": "Turnover up"
             }
           ]
         }
@@ -232,6 +245,674 @@
             }
           }
         }
+      ],
+      "values": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "piotroski_f_score"
+                                }
+                              },
+                              "Property": "s_roa_positive"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "piotroski_f_score.s_roa_positive"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "piotroski_f_score"
+                                }
+                              },
+                              "Property": "s_ocf_positive"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "piotroski_f_score.s_ocf_positive"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "piotroski_f_score"
+                                }
+                              },
+                              "Property": "s_roa_improved"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "piotroski_f_score.s_roa_improved"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "piotroski_f_score"
+                                }
+                              },
+                              "Property": "s_accruals"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "piotroski_f_score.s_accruals"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "piotroski_f_score"
+                                }
+                              },
+                              "Property": "s_leverage_fell"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "piotroski_f_score.s_leverage_fell"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "piotroski_f_score"
+                                }
+                              },
+                              "Property": "s_liquidity_rose"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "piotroski_f_score.s_liquidity_rose"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "piotroski_f_score"
+                                }
+                              },
+                              "Property": "s_no_dilution"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "piotroski_f_score.s_no_dilution"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "piotroski_f_score"
+                                }
+                              },
+                              "Property": "s_margin_rose"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "piotroski_f_score.s_margin_rose"
+          }
+        },
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Aggregation": {
+                          "Expression": {
+                            "Column": {
+                              "Expression": {
+                                "SourceRef": {
+                                  "Entity": "piotroski_f_score"
+                                }
+                              },
+                              "Property": "s_turnover_rose"
+                            }
+                          },
+                          "Function": 0
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient2": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "piotroski_f_score.s_turnover_rose"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -248,7 +929,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Filers by partial F-score with the nine signals'"
+                  "Value": "'Filers by partial F-score with the nine signals (green = 1, red = 0); right-click a filer to drill through'"
                 }
               }
             }
@@ -261,7 +942,7 @@
   "filterConfig": {
     "filters": [
       {
-        "name": "ba5a04840e0132d35209",
+        "name": "620d04a8b69068532d74",
         "field": {
           "Column": {
             "Expression": {
@@ -275,7 +956,7 @@
         "type": "Categorical"
       },
       {
-        "name": "a10fcc5c0b7b8b2c5b3b",
+        "name": "25257e3f7406b9c3d3da",
         "field": {
           "Column": {
             "Expression": {
@@ -289,7 +970,7 @@
         "type": "Advanced"
       },
       {
-        "name": "325dfc9494795102e1ae",
+        "name": "ee138d07491c17420c66",
         "field": {
           "Column": {
             "Expression": {
@@ -303,7 +984,7 @@
         "type": "Advanced"
       },
       {
-        "name": "59c97d1e9c551dda97a0",
+        "name": "7851b1913020e68e7a52",
         "field": {
           "Column": {
             "Expression": {
@@ -317,7 +998,7 @@
         "type": "Advanced"
       },
       {
-        "name": "1f42c6c601b97512db6c",
+        "name": "728e7051e173e33ee1b0",
         "field": {
           "Column": {
             "Expression": {
@@ -331,7 +1012,7 @@
         "type": "Advanced"
       },
       {
-        "name": "f01c5880b09614b82056",
+        "name": "80eb6a755a9ab2c39537",
         "field": {
           "Column": {
             "Expression": {
@@ -345,7 +1026,7 @@
         "type": "Advanced"
       },
       {
-        "name": "a0b663fccc7c8bc52b68",
+        "name": "eba94816721c350d4ae4",
         "field": {
           "Column": {
             "Expression": {
@@ -359,7 +1040,7 @@
         "type": "Advanced"
       },
       {
-        "name": "1b0cdd1276e08a0286db",
+        "name": "df44f40f1587e2970d23",
         "field": {
           "Column": {
             "Expression": {
@@ -373,7 +1054,7 @@
         "type": "Advanced"
       },
       {
-        "name": "cefb8371dceea09359a0",
+        "name": "cd65f1205521d0950da0",
         "field": {
           "Column": {
             "Expression": {
@@ -387,7 +1068,7 @@
         "type": "Advanced"
       },
       {
-        "name": "bd0df695119b4e15c000",
+        "name": "d4783135b1880c22b332",
         "field": {
           "Column": {
             "Expression": {
@@ -401,7 +1082,7 @@
         "type": "Advanced"
       },
       {
-        "name": "ac963c47876582271067",
+        "name": "c9772688bb60e79c2d15",
         "field": {
           "Column": {
             "Expression": {
@@ -415,7 +1096,7 @@
         "type": "Advanced"
       },
       {
-        "name": "480f35d3009004c02984",
+        "name": "b7cc82ba0a57e74b4d9a",
         "field": {
           "Column": {
             "Expression": {
@@ -429,7 +1110,7 @@
         "type": "Advanced"
       },
       {
-        "name": "326c3420e8bb323c6519",
+        "name": "9ae1e9a096440ec0c058",
         "field": {
           "Column": {
             "Expression": {

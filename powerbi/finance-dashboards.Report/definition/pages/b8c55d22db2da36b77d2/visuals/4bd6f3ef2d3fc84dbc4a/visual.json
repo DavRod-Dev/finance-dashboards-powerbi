@@ -80,11 +80,11 @@
                       "Entity": "_Measures"
                     }
                   },
-                  "Property": "Avg ROA percentile (filer)"
+                  "Property": "Signals available (filer)"
                 }
               },
-              "queryRef": "_Measures.Avg ROA percentile (filer)",
-              "nativeQueryRef": "Avg ROA percentile (filer)"
+              "queryRef": "_Measures.Signals available (filer)",
+              "nativeQueryRef": "Signals available (filer)"
             }
           ]
         }

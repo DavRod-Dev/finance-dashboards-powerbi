@@ -28,7 +28,8 @@
                 }
               },
               "queryRef": "dim_fiscal_year.fiscal_year",
-              "nativeQueryRef": "fiscal_year"
+              "nativeQueryRef": "fiscal_year",
+              "displayName": "Year"
             },
             {
               "field": {
@@ -42,7 +43,8 @@
                 }
               },
               "queryRef": "_Measures.Avg net margin percentile (filer)",
-              "nativeQueryRef": "Avg net margin percentile (filer)"
+              "nativeQueryRef": "Avg net margin percentile (filer)",
+              "displayName": "Net margin pctile"
             },
             {
               "field": {
@@ -56,7 +58,8 @@
                 }
               },
               "queryRef": "_Measures.Avg ROA percentile (filer)",
-              "nativeQueryRef": "Avg ROA percentile (filer)"
+              "nativeQueryRef": "Avg ROA percentile (filer)",
+              "displayName": "ROA pctile"
             },
             {
               "field": {
@@ -70,7 +73,8 @@
                 }
               },
               "queryRef": "_Measures.Avg FCF margin percentile (filer)",
-              "nativeQueryRef": "Avg FCF margin percentile (filer)"
+              "nativeQueryRef": "Avg FCF margin percentile (filer)",
+              "displayName": "FCF margin pctile"
             }
           ]
         }

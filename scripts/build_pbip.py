@@ -90,7 +90,7 @@ MODEL_TABLES = {
     "portfolio_daily": {"hidden": ["date"], "description": "Portfolio and benchmark daily return, growth of 1 and drawdown from peak."},
     "asset_returns_long": {"hidden": ["date", "asset_id"], "description": "Daily return per asset."},
     "risk_contributions": {"hidden": ["asset_id"], "description": "Euler risk decomposition: weight, stand-alone volatility, marginal and component contribution, share of portfolio risk."},
-    "monthly_returns_long": {"description": "Portfolio return per calendar month."},
+    "monthly_returns_long": {"description": "Portfolio return per calendar month.", "sort": {"month_name": "month"}},
     "summary_metrics": {"description": "Performance summary for the portfolio and its benchmark."},
     "tail_risk": {"description": "Historical, parametric and Cornish-Fisher VaR and CVaR at 95% and 99%."},
     "correlation_long": {"description": "Pairwise correlation of daily asset returns."},
@@ -154,10 +154,11 @@ def parquet_table_tmdl(table: str, spec: dict) -> str:
     cols = parquet_columns(table)
     hidden = set(spec.get("hidden", []))
     key = spec.get("key")
+    sort = spec.get("sort", {})
     out = [f"/// {spec['description']}", f"table {table}", f"\tlineageTag: {tag(table)}", ""]
     for name, dtype in cols:
         out.append(column_tmdl(table, name, dtype, hidden=name in hidden, key=(name == key),
-                               fmt=format_for(name, dtype)))
+                               fmt=format_for(name, dtype), sort_by=sort.get(name)))
     m = [
         "let",
         f'    Source = Parquet.Document(File.Contents(DataFolder & "\\{table}.parquet"))',
@@ -343,14 +344,20 @@ AXIS_ROLES = {"Category", "Series", "X", "Rows", "Columns", "Values"}
 NO_ACTIVE_VISUALS = {"tableEx", "cardVisual"}
 
 
-def col(table: str, column: str) -> dict:
-    return {"field": {"Column": {"Expression": {"SourceRef": {"Entity": table}}, "Property": column}},
-            "queryRef": f"{table}.{column}", "nativeQueryRef": column}
+def col(table: str, column: str, label: str | None = None) -> dict:
+    out = {"field": {"Column": {"Expression": {"SourceRef": {"Entity": table}}, "Property": column}},
+           "queryRef": f"{table}.{column}", "nativeQueryRef": column}
+    if label:
+        out["displayName"] = label
+    return out
 
 
-def mea(name: str) -> dict:
-    return {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "_Measures"}}, "Property": name}},
-            "queryRef": f"_Measures.{name}", "nativeQueryRef": name}
+def mea(name: str, label: str | None = None) -> dict:
+    out = {"field": {"Measure": {"Expression": {"SourceRef": {"Entity": "_Measures"}}, "Property": name}},
+           "queryRef": f"_Measures.{name}", "nativeQueryRef": name}
+    if label:
+        out["displayName"] = label
+    return out
 
 
 def visual(page: str, key: str, vtype: str, x: float, y: float, w: float, h: float, *, roles: dict | None = None,
@@ -422,9 +429,68 @@ def cards(page: str, key: str, measures: list[str], x: float, y: float, w: float
     return name, v
 
 
+def fill_rule(field: dict, stops: list[tuple[str, float | None]]) -> dict:
+    """Background colour rule for a table/matrix cell: two or three (colour, value) stops.
+
+    The rule's Input becomes a query projection, which must be a measure or
+    an aggregation: a bare column is rejected by the query engine, so column
+    inputs are wrapped in Sum. A stop value of None means "auto" (data min/max).
+    """
+    inp = field["field"]
+    if "Column" in inp:
+        inp = {"Aggregation": {"Expression": {"Column": inp["Column"]}, "Function": 0}}
+    key = "linearGradient2" if len(stops) == 2 else "linearGradient3"
+    names = ["min", "max"] if len(stops) == 2 else ["min", "mid", "max"]
+    grad = {}
+    for n, (c, v) in zip(names, stops):
+        stop = {"color": {"Literal": {"Value": f"'{c}'"}}}
+        if v is not None:
+            stop["value"] = {"Literal": {"Value": f"{v}D"}}
+        grad[n] = stop
+    grad["nullColoringStrategy"] = {"strategy": {"Literal": {"Value": "'asZero'"}}}
+    return {"solid": {"color": {"expr": {"FillRule": {"Input": inp, "FillRule": {key: grad}}}}}}
+
+
+def cell_colours(projections: list[dict], stops: list[tuple[str, float | None]]) -> list[dict]:
+    """One `values` formatting entry per projection; Desktop keys these by the
+    field's queryRef and a data wildcard selector."""
+    return [{"properties": {"backColor": fill_rule(pr, stops)},
+             "selector": {"data": [{"dataViewWildcard": {"matchingOption": 1}}], "metadata": pr["queryRef"]}}
+            for pr in projections]
+
+
+RED_GREEN = [("#F5B7B1", 0.0), ("#A9DFBF", 1.0)]
+BLUE_WHITE_RED = [("#5B8DEF", -1.0), ("#FFFFFF", 0.0), ("#E57373", 1.0)]
+
 NO_TOTALS = {"subTotals": [{"properties": {"rowSubtotals": lit("false"), "columnSubtotals": lit("false")}}]}
 NO_TABLE_TOTAL = {"total": [{"properties": {"totals": lit("false")}}]}
 AXIS_NO_UNITS = {"valueAxis": [{"properties": {"labelDisplayUnits": lit("1D")}}]}
+
+
+SIGNAL_COLS = [
+    col("piotroski_f_score", "s_roa_positive", "ROA > 0"),
+    col("piotroski_f_score", "s_ocf_positive", "OCF > 0"),
+    col("piotroski_f_score", "s_roa_improved", "ROA up"),
+    col("piotroski_f_score", "s_accruals", "OCF > NI"),
+    col("piotroski_f_score", "s_leverage_fell", "Lev. down"),
+    col("piotroski_f_score", "s_liquidity_rose", "Liq. up"),
+    col("piotroski_f_score", "s_no_dilution", "No dilution"),
+    col("piotroski_f_score", "s_margin_rose", "Margin up"),
+    col("piotroski_f_score", "s_turnover_rose", "Turnover up"),
+]
+
+# The company page is a drill-through target on dim_company[filer_name]:
+# right-click any filer on page 1 and choose Drill through > Company detail.
+DRILL_FILTER = oid("filter", "company", "filer")
+DRILL_BINDING = oid("binding", "company")
+COMPANY_PAGE_EXTRA = {
+    "filterConfig": {"filters": [{"name": DRILL_FILTER, "field": col("dim_company", "filer_name")["field"],
+                                  "type": "Categorical", "howCreated": "Drillthrough"}]},
+    "pageBinding": {"name": DRILL_BINDING, "type": "Drillthrough",
+                    "parameters": [{"name": oid("param", "company", "filer"), "boundFilter": DRILL_FILTER,
+                                    "fieldExpr": col("dim_company", "filer_name")["field"]}]},
+}
+PAGE_EXTRA = {"company": COMPANY_PAGE_EXTRA}
 
 
 def build_pages() -> dict[str, tuple[str, list[tuple[str, dict]]]]:
@@ -450,25 +516,22 @@ def build_pages() -> dict[str, tuple[str, list[tuple[str, dict]]]]:
                       "Y": [mea("Avg net margin percentile")], "Size": [mea("Total assets")]},
                title="ROA percentile vs net-margin percentile, sized by assets"),
         visual(p, "table", "tableEx", 24, 478, 1232, 226,
-               roles={"Values": [col("dim_company", "filer_name"), col("dim_fiscal_year", "fiscal_year"),
-                                 col("piotroski_f_score", "f_score_partial"), col("piotroski_f_score", "signals_available"),
-                                 col("piotroski_f_score", "s_roa_positive"), col("piotroski_f_score", "s_ocf_positive"),
-                                 col("piotroski_f_score", "s_roa_improved"), col("piotroski_f_score", "s_accruals"),
-                                 col("piotroski_f_score", "s_leverage_fell"), col("piotroski_f_score", "s_liquidity_rose"),
-                                 col("piotroski_f_score", "s_no_dilution"), col("piotroski_f_score", "s_margin_rose"),
-                                 col("piotroski_f_score", "s_turnover_rose")]},
+               roles={"Values": [col("dim_company", "filer_name", "Filer"), col("dim_fiscal_year", "fiscal_year", "Year"),
+                                 col("piotroski_f_score", "f_score_partial", "Partial F"),
+                                 col("piotroski_f_score", "signals_available", "Signals"), *SIGNAL_COLS]},
                sort=(col("piotroski_f_score", "f_score_partial"), "Descending"),
-               title="Filers by partial F-score with the nine signals", objects=NO_TABLE_TOTAL),
+               title="Filers by partial F-score with the nine signals (green = 1, red = 0); right-click a filer to drill through",
+               objects={**NO_TABLE_TOTAL, "values": cell_colours(SIGNAL_COLS, RED_GREEN)}),
     ]
     pages[p] = ("Fundamentals screen", vs)
 
     # ---- page 2: company detail
     p = "company"
     vs = [
-        textbox(p, "title", "Company detail - pick a filer", 24, 12, 800, 40),
+        textbox(p, "title", "Company detail - pick a filer, or drill through from the fundamentals screen", 24, 12, 1100, 40),
         slicer(p, "company", "dim_company", "filer_name", 24, 60, 520, 60, single=True, title="Filer (type to search)"),
         slicer(p, "sector", "dim_company", "sector", 560, 60, 300, 60, title="Sector"),
-        cards(p, "kpis", ["Revenue (filer)", "Net income (filer)", "Operating cash flow (filer)", "ROE (filer)", "Avg ROA percentile (filer)"], 24, 132, 1232, 100),
+        cards(p, "kpis", ["Revenue (filer)", "Net income (filer)", "Operating cash flow (filer)", "ROE (filer)", "Signals available (filer)"], 24, 132, 1232, 100),
         visual(p, "lines", "clusteredColumnChart", 24, 248, 608, 220,
                roles={"Category": [col("dim_fiscal_year", "fiscal_year")],
                       "Y": [mea("Revenue (filer)"), mea("Net income (filer)"), mea("Operating cash flow (filer)")]},
@@ -477,12 +540,13 @@ def build_pages() -> dict[str, tuple[str, list[tuple[str, dict]]]]:
                roles={"Category": [col("dim_fiscal_year", "fiscal_year")], "Y": [mea("Avg F-score (filer)"), mea("Signals available (filer)")]},
                title="Partial F-score and signals available by fiscal year"),
         visual(p, "dupont", "tableEx", 24, 484, 608, 220,
-               roles={"Values": [col("dim_fiscal_year", "fiscal_year"), mea("DuPont net margin (filer)"), mea("Asset turnover (filer)"),
-                                 mea("Equity multiplier (filer)"), mea("ROE (filer)")]},
+               roles={"Values": [col("dim_fiscal_year", "fiscal_year", "Year"), mea("DuPont net margin (filer)", "Net margin"),
+                                 mea("Asset turnover (filer)", "Asset turnover"), mea("Equity multiplier (filer)", "Equity multiplier"),
+                                 mea("ROE (filer)", "ROE")]},
                title="DuPont: ROE = net margin x asset turnover x equity multiplier", objects=NO_TABLE_TOTAL),
         visual(p, "peers", "tableEx", 648, 484, 608, 220,
-               roles={"Values": [col("dim_fiscal_year", "fiscal_year"), mea("Avg net margin percentile (filer)"),
-                                 mea("Avg ROA percentile (filer)"), mea("Avg FCF margin percentile (filer)")]},
+               roles={"Values": [col("dim_fiscal_year", "fiscal_year", "Year"), mea("Avg net margin percentile (filer)", "Net margin pctile"),
+                                 mea("Avg ROA percentile (filer)", "ROA pctile"), mea("Avg FCF margin percentile (filer)", "FCF margin pctile")]},
                title="Percentile within SIC2 peer group by fiscal year", objects=NO_TABLE_TOTAL),
     ]
     pages[p] = ("Company detail", vs)
@@ -492,18 +556,18 @@ def build_pages() -> dict[str, tuple[str, list[tuple[str, dict]]]]:
     vs = [
         textbox(p, "title", "Portfolio risk - multi-asset proxy book, FRED index levels", 24, 12, 900, 40),
         cards(p, "kpis", ["Annualized return", "Annualized volatility", "Sharpe", "Max drawdown", "VaR 95 (1-day)", "CVaR 95 (1-day)"], 24, 60, 1232, 100),
-        visual(p, "growth", "lineChart", 24, 176, 816, 260,
+        visual(p, "growth", "lineChart", 24, 176, 740, 260,
                roles={"Category": [col("dim_date", "Date")], "Y": [mea("Portfolio growth"), mea("Benchmark growth")]},
                title="Growth of 1: portfolio vs S&P 500"),
-        visual(p, "risk", "clusteredBarChart", 856, 176, 400, 260,
+        visual(p, "risk", "clusteredBarChart", 780, 176, 476, 260,
                roles={"Category": [col("risk_contributions", "asset")], "Y": [mea("Share of risk"), mea("Weight")]},
                sort=(mea("Share of risk"), "Descending"),
                title="Share of risk vs weight (Euler contributions)"),
-        visual(p, "drawdown", "areaChart", 24, 452, 816, 250,
+        visual(p, "drawdown", "areaChart", 24, 452, 740, 250,
                roles={"Category": [col("dim_date", "Date")], "Y": [mea("Portfolio drawdown"), mea("Benchmark drawdown")]},
                title="Drawdown from peak"),
-        visual(p, "vol", "tableEx", 856, 452, 400, 250,
-               roles={"Values": [col("risk_contributions", "asset"), mea("Weight"), mea("Stand-alone volatility"), mea("Share of risk")]},
+        visual(p, "vol", "tableEx", 780, 452, 476, 250,
+               roles={"Values": [col("risk_contributions", "asset", "Asset"), mea("Weight"), mea("Stand-alone volatility", "Volatility"), mea("Share of risk")]},
                sort=(mea("Share of risk"), "Descending"),
                title="Risk contribution table", objects=NO_TABLE_TOTAL),
     ]
@@ -513,17 +577,21 @@ def build_pages() -> dict[str, tuple[str, list[tuple[str, dict]]]]:
     p = "calendar"
     vs = [
         textbox(p, "title", "Correlation and monthly returns", 24, 12, 800, 40),
-        visual(p, "corr", "pivotTable", 24, 60, 600, 320,
-               roles={"Rows": [col("correlation_long", "asset_a_label")], "Columns": [col("correlation_long", "asset_b_label")], "Values": [mea("Correlation")]},
-               title="Correlation of daily returns", objects=NO_TOTALS),
-        visual(p, "monthly", "pivotTable", 24, 396, 1232, 308,
-               roles={"Rows": [col("monthly_returns_long", "year")], "Columns": [col("monthly_returns_long", "month")], "Values": [mea("Monthly return")]},
-               title="Monthly portfolio returns", objects=NO_TOTALS),
-        cards(p, "period", ["Return in period", "Diversification ratio", "VaR 99 (1-day)"], 648, 60, 608, 100, font=22),
-        slicer(p, "dates", "dim_date", "Date", 648, 176, 608, 80, title="Date range"),
+        cards(p, "period", ["Return in period", "Diversification ratio", "VaR 99 (1-day)"], 24, 60, 700, 100, font=22),
+        slicer(p, "dates", "dim_date", "Date", 740, 60, 516, 100, title="Date range (filters the cards and the monthly grid)"),
+        visual(p, "corr", "pivotTable", 24, 176, 1232, 250,
+               roles={"Rows": [col("correlation_long", "asset_a_label", "Asset")], "Columns": [col("correlation_long", "asset_b_label", "vs")],
+                      "Values": [mea("Correlation")]},
+               title="Correlation of daily returns (blue = -1, white = 0, red = +1)",
+               objects={**NO_TOTALS, "values": cell_colours([mea("Correlation")], BLUE_WHITE_RED)}),
+        visual(p, "monthly", "pivotTable", 24, 442, 1232, 262,
+               roles={"Rows": [col("monthly_returns_long", "year", "Year")], "Columns": [col("monthly_returns_long", "month_name", "Month")],
+                      "Values": [mea("Monthly return")]},
+               title="Monthly portfolio returns (red = loss, green = gain)",
+               objects={**NO_TOTALS, "values": cell_colours([mea("Monthly return")], [("#F5B7B1", -0.08), ("#FFFFFF", 0.0), ("#A9DFBF", 0.08)])}),
     ]
     # the date slicer should be a between-slider, not a dropdown
-    vs[-1][1]["visual"]["objects"] = {"data": [{"properties": {"mode": lit("'Between'")}}], "general": [{"properties": {}}]}
+    vs[2][1]["visual"]["objects"] = {"data": [{"properties": {"mode": lit("'Between'")}}], "general": [{"properties": {}}]}
     pages[p] = ("Correlation & calendar", vs)
     return pages
 
@@ -587,8 +655,9 @@ def main() -> None:
     pages = build_pages()
     for key, (display, visuals) in pages.items():
         pname = oid("page", key)
-        write_json(REPORT_DIR / "definition" / "pages" / pname / "page.json",
-                   {"$schema": PAGE_SCHEMA, "name": pname, "displayName": display, "displayOption": "FitToPage", "height": 720, "width": 1280})
+        page_json = {"$schema": PAGE_SCHEMA, "name": pname, "displayName": display, "displayOption": "FitToPage",
+                     "height": 720, "width": 1280, **PAGE_EXTRA.get(key, {})}
+        write_json(REPORT_DIR / "definition" / "pages" / pname / "page.json", page_json)
         for vname, vjson in visuals:
             write_json(REPORT_DIR / "definition" / "pages" / pname / "visuals" / vname / "visual.json", vjson)
     write_json(REPORT_DIR / "definition" / "pages" / "pages.json", {

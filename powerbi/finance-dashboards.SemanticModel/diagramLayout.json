@@ -128,12 +128,12 @@
         {
           "location": {
             "x": 2380.7795631239924,
-            "y": 488.50876777175642
+            "y": 476.50876777175642
           },
           "nodeIndex": "monthly_returns_long",
           "nodeLineageTag": "381b213b-7fc9-55fc-9dee-f6e9c938876b",
           "size": {
-            "height": 152,
+            "height": 176,
             "width": 234
           },
           "zIndex": 0

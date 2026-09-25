@@ -3,9 +3,9 @@
   "name": "5ba2b6ae3bc9f160b059",
   "position": {
     "x": 24,
-    "y": 396,
+    "y": 442,
     "z": 1000,
-    "height": 308,
+    "height": 262,
     "width": 1232,
     "tabOrder": 1000
   },
@@ -29,6 +29,7 @@
               },
               "queryRef": "monthly_returns_long.year",
               "nativeQueryRef": "year",
+              "displayName": "Year",
               "active": true
             }
           ]
@@ -43,11 +44,12 @@
                       "Entity": "monthly_returns_long"
                     }
                   },
-                  "Property": "month"
+                  "Property": "month_name"
                 }
               },
-              "queryRef": "monthly_returns_long.month",
-              "nativeQueryRef": "month",
+              "queryRef": "monthly_returns_long.month_name",
+              "nativeQueryRef": "month_name",
+              "displayName": "Month",
               "active": true
             }
           ]
@@ -92,6 +94,89 @@
             }
           }
         }
+      ],
+      "values": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Measures"
+                            }
+                          },
+                          "Property": "Monthly return"
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient3": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#F5B7B1'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "-0.08D"
+                              }
+                            }
+                          },
+                          "mid": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#FFFFFF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#A9DFBF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.08D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "_Measures.Monthly return"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -108,7 +193,7 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Monthly portfolio returns'"
+                  "Value": "'Monthly portfolio returns (red = loss, green = gain)'"
                 }
               }
             }

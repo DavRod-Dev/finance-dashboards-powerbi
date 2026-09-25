@@ -4,5 +4,44 @@
   "displayName": "Company detail",
   "displayOption": "FitToPage",
   "height": 720,
-  "width": 1280
+  "width": 1280,
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "7861a686782c8a3c6cc3",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_company"
+              }
+            },
+            "Property": "filer_name"
+          }
+        },
+        "type": "Categorical",
+        "howCreated": "Drillthrough"
+      }
+    ]
+  },
+  "pageBinding": {
+    "name": "ccb0d54a37ca6c52a905",
+    "type": "Drillthrough",
+    "parameters": [
+      {
+        "name": "e7bdcd605783fb761ed9",
+        "boundFilter": "7861a686782c8a3c6cc3",
+        "fieldExpr": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "dim_company"
+              }
+            },
+            "Property": "filer_name"
+          }
+        }
+      }
+    ]
+  }
 }

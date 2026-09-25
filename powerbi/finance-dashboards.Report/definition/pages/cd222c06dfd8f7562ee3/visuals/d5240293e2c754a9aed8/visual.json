@@ -1,38 +1,18 @@
 {
-  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.12.0/schema.json",
   "name": "d5240293e2c754a9aed8",
   "position": {
     "x": 24,
-    "y": 60,
+    "y": 176,
     "z": 1000,
-    "height": 320,
-    "width": 600,
+    "height": 250,
+    "width": 1232,
     "tabOrder": 1000
   },
   "visual": {
     "visualType": "pivotTable",
-    "drillFilterOtherVisuals": true,
     "query": {
       "queryState": {
-        "Rows": {
-          "projections": [
-            {
-              "field": {
-                "Column": {
-                  "Expression": {
-                    "SourceRef": {
-                      "Entity": "correlation_long"
-                    }
-                  },
-                  "Property": "asset_a_label"
-                }
-              },
-              "queryRef": "correlation_long.asset_a_label",
-              "nativeQueryRef": "asset_a_label",
-              "active": true
-            }
-          ]
-        },
         "Columns": {
           "projections": [
             {
@@ -48,7 +28,28 @@
               },
               "queryRef": "correlation_long.asset_b_label",
               "nativeQueryRef": "asset_b_label",
-              "active": true
+              "active": true,
+              "displayName": "vs"
+            }
+          ]
+        },
+        "Rows": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "correlation_long"
+                    }
+                  },
+                  "Property": "asset_a_label"
+                }
+              },
+              "queryRef": "correlation_long.asset_a_label",
+              "nativeQueryRef": "asset_a_label",
+              "active": true,
+              "displayName": "Asset"
             }
           ]
         },
@@ -92,6 +93,89 @@
             }
           }
         }
+      ],
+      "values": [
+        {
+          "properties": {
+            "backColor": {
+              "solid": {
+                "color": {
+                  "expr": {
+                    "FillRule": {
+                      "Input": {
+                        "Measure": {
+                          "Expression": {
+                            "SourceRef": {
+                              "Entity": "_Measures"
+                            }
+                          },
+                          "Property": "Correlation"
+                        }
+                      },
+                      "FillRule": {
+                        "linearGradient3": {
+                          "min": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#5B8DEF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "-1.0D"
+                              }
+                            }
+                          },
+                          "mid": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#FFFFFF'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "0.0D"
+                              }
+                            }
+                          },
+                          "max": {
+                            "color": {
+                              "Literal": {
+                                "Value": "'#E57373'"
+                              }
+                            },
+                            "value": {
+                              "Literal": {
+                                "Value": "1.0D"
+                              }
+                            }
+                          },
+                          "nullColoringStrategy": {
+                            "strategy": {
+                              "Literal": {
+                                "Value": "'asZero'"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "selector": {
+            "data": [
+              {
+                "dataViewWildcard": {
+                  "matchingOption": 1
+                }
+              }
+            ],
+            "metadata": "_Measures.Correlation"
+          }
+        }
       ]
     },
     "visualContainerObjects": {
@@ -108,13 +192,60 @@
             "text": {
               "expr": {
                 "Literal": {
-                  "Value": "'Correlation of daily returns'"
+                  "Value": "'Correlation of daily returns (blue = -1, white = 0, red = +1)'"
                 }
               }
             }
           }
         }
       ]
-    }
+    },
+    "drillFilterOtherVisuals": true
+  },
+  "filterConfig": {
+    "filters": [
+      {
+        "name": "4da14bf02a9351a964d2",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "correlation_long"
+              }
+            },
+            "Property": "asset_a_label"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "8c2ff1a4ec306e327022",
+        "field": {
+          "Column": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "correlation_long"
+              }
+            },
+            "Property": "asset_b_label"
+          }
+        },
+        "type": "Categorical"
+      },
+      {
+        "name": "5df73970be390b477393",
+        "field": {
+          "Measure": {
+            "Expression": {
+              "SourceRef": {
+                "Entity": "_Measures"
+              }
+            },
+            "Property": "Correlation"
+          }
+        },
+        "type": "Advanced"
+      }
+    ]
   }
 }

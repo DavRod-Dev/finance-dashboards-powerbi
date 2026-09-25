@@ -27,6 +27,15 @@ table monthly_returns_long
 
 		annotation SummarizationSetBy = Automatic
 
+	column month_name
+		dataType: string
+		lineageTag: 0b56e0a0-0f36-5937-a963-257829abd95b
+		summarizeBy: none
+		sourceColumn: month_name
+		sortByColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
 	partition monthly_returns_long = m
 		mode: import
 		source =

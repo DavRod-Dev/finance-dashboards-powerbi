@@ -29,3 +29,5 @@ ref table tail_risk
 ref table correlation_long
 ref table _Measures
 
+ref cultureInfo en-US
+

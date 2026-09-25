@@ -28,7 +28,8 @@
                 }
               },
               "queryRef": "dim_fiscal_year.fiscal_year",
-              "nativeQueryRef": "fiscal_year"
+              "nativeQueryRef": "fiscal_year",
+              "displayName": "Year"
             },
             {
               "field": {
@@ -42,7 +43,8 @@
                 }
               },
               "queryRef": "_Measures.DuPont net margin (filer)",
-              "nativeQueryRef": "DuPont net margin (filer)"
+              "nativeQueryRef": "DuPont net margin (filer)",
+              "displayName": "Net margin"
             },
             {
               "field": {
@@ -56,7 +58,8 @@
                 }
               },
               "queryRef": "_Measures.Asset turnover (filer)",
-              "nativeQueryRef": "Asset turnover (filer)"
+              "nativeQueryRef": "Asset turnover (filer)",
+              "displayName": "Asset turnover"
             },
             {
               "field": {
@@ -70,7 +73,8 @@
                 }
               },
               "queryRef": "_Measures.Equity multiplier (filer)",
-              "nativeQueryRef": "Equity multiplier (filer)"
+              "nativeQueryRef": "Equity multiplier (filer)",
+              "displayName": "Equity multiplier"
             },
             {
               "field": {
@@ -84,7 +88,8 @@
                 }
               },
               "queryRef": "_Measures.ROE (filer)",
-              "nativeQueryRef": "ROE (filer)"
+              "nativeQueryRef": "ROE (filer)",
+              "displayName": "ROE"
             }
           ]
         }

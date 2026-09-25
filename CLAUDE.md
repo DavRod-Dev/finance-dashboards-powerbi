@@ -62,6 +62,13 @@ What the real product corrected, in order:
    returns or of correlations is not a number anyone should read.
 6. **Slicers need ~60 px** to show their dropdown; at 44 only the header
    rendered.
+7. **A `FillRule` input is a query projection**: bare columns are rejected
+   ("Projection at index N is invalid"), so column inputs are wrapped in
+   `Aggregation(Sum)`, and the selector needs `dataViewWildcard` plus the
+   field's `queryRef` or the rule is ignored.
+8. **Drill-through** = page `filterConfig` filter with
+   `howCreated: "Drillthrough"` + `pageBinding` of type `Drillthrough`
+   binding a parameter to that filter.
 
 The `.pbix` and `reports/finance-dashboards.pdf` are exports of the
 generated project after a data refresh in Desktop; the PNGs in

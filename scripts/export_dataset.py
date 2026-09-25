@@ -140,6 +140,7 @@ def export_risk() -> None:
     # Long form for a BI matrix: one row per (year, month).
     monthly_long = monthly.melt(id_vars="year", var_name="month", value_name="monthly_return").dropna()
     monthly_long["month"] = monthly_long["month"].astype(int)
+    monthly_long["month_name"] = pd.to_datetime(monthly_long["month"], format="%m").dt.strftime("%b")
     monthly_long = monthly_long.sort_values(["year", "month"]).reset_index(drop=True)
     write(monthly_long, "monthly_returns_long")
 
