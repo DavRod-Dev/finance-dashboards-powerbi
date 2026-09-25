@@ -137,6 +137,11 @@ def export_risk() -> None:
 
     monthly = rd.monthly.reset_index()
     write(monthly, "monthly_returns")
+    # Long form for a BI matrix: one row per (year, month).
+    monthly_long = monthly.melt(id_vars="year", var_name="month", value_name="monthly_return").dropna()
+    monthly_long["month"] = monthly_long["month"].astype(int)
+    monthly_long = monthly_long.sort_values(["year", "month"]).reset_index(drop=True)
+    write(monthly_long, "monthly_returns_long")
 
     summ = pd.DataFrame([{"scope": "portfolio", **rd.summary}]
                         + ([{"scope": "benchmark", **rd.bench_summary}] if rd.bench_summary else []))
@@ -145,6 +150,8 @@ def export_risk() -> None:
     write(rd.tails.reset_index(), "tail_risk")
     corr = rd.correlation.reset_index().melt(id_vars=rd.correlation.index.name or "index", var_name="asset_b", value_name="correlation")
     corr.columns = ["asset_a", "asset_b", "correlation"]
+    corr["asset_a_label"] = corr["asset_a"].map(labels)
+    corr["asset_b_label"] = corr["asset_b"].map(labels)
     write(corr, "correlation_long")
 
 

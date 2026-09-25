@@ -1,0 +1,84 @@
+/// ROE decomposed into net margin x asset turnover x equity multiplier on average balances.
+table dupont
+	lineageTag: 55c638a4-e614-5857-82eb-1a188393d796
+
+	column filer_name
+		dataType: string
+		lineageTag: 06d58823-1185-5cb1-9939-0b3f50500986
+		summarizeBy: none
+		sourceColumn: filer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column cik
+		dataType: int64
+		isHidden
+		lineageTag: 91e41281-74a6-5762-9ad9-4db618c3e10f
+		summarizeBy: none
+		sourceColumn: cik
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		isHidden
+		lineageTag: e685960d-b590-54fc-9d95-94e6c2611039
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_margin
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 4f9ab75a-1c1b-57a3-94ee-b0c45d6e003e
+		summarizeBy: none
+		sourceColumn: net_margin
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_turnover
+		dataType: double
+		formatString: 0.00
+		lineageTag: 4a2b218d-4d13-5d5e-94e9-20bd5af517e6
+		summarizeBy: none
+		sourceColumn: asset_turnover
+
+		annotation SummarizationSetBy = Automatic
+
+	column equity_multiplier
+		dataType: double
+		formatString: 0.00
+		lineageTag: 3673b7f2-d0e7-5648-9122-98684a99d6d0
+		summarizeBy: none
+		sourceColumn: equity_multiplier
+
+		annotation SummarizationSetBy = Automatic
+
+	column roe
+		dataType: double
+		formatString: 0.0%
+		lineageTag: faebb7ca-43f4-50a5-ae85-c6d972ce3969
+		summarizeBy: none
+		sourceColumn: roe
+
+		annotation SummarizationSetBy = Automatic
+
+	column identity_residual
+		dataType: double
+		formatString: 0.00
+		lineageTag: 0cbfadce-8f4d-5d58-969c-1a9741bf5ea0
+		summarizeBy: none
+		sourceColumn: identity_residual
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dupont = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\dupont.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,98 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "name": "3dcf0d67d17d5899b858",
+  "position": {
+    "x": 440,
+    "y": 248,
+    "z": 1000,
+    "height": 214,
+    "width": 400,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "hundredPercentStackedBarChart",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_company"
+                    }
+                  },
+                  "Property": "sector"
+                }
+              },
+              "queryRef": "dim_company.sector",
+              "nativeQueryRef": "sector",
+              "active": true
+            }
+          ]
+        },
+        "Series": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "altman_z_double_prime"
+                    }
+                  },
+                  "Property": "zone"
+                }
+              },
+              "queryRef": "altman_z_double_prime.zone",
+              "nativeQueryRef": "zone",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Altman filers"
+                }
+              },
+              "queryRef": "_Measures.Altman filers",
+              "nativeQueryRef": "Altman filers"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Altman zone share by sector (>= $100M assets, non-financial)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

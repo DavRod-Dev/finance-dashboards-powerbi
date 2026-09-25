@@ -1,0 +1,58 @@
+/// Historical, parametric and Cornish-Fisher VaR and CVaR at 95% and 99%.
+table tail_risk
+	lineageTag: 8d749348-ee01-5f27-b1d9-d434e19caef7
+
+	column level
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 4d156625-a615-52f1-bf68-d92eb6c9362d
+		summarizeBy: none
+		sourceColumn: level
+
+		annotation SummarizationSetBy = Automatic
+
+	column historical_var
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 56611ff4-2274-5dcf-8060-65f216272566
+		summarizeBy: none
+		sourceColumn: historical_var
+
+		annotation SummarizationSetBy = Automatic
+
+	column historical_cvar
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6990e89e-acb3-5bf6-88e9-22a5b6d84fa6
+		summarizeBy: none
+		sourceColumn: historical_cvar
+
+		annotation SummarizationSetBy = Automatic
+
+	column parametric_var
+		dataType: double
+		formatString: 0.0%
+		lineageTag: ffde9a22-8194-5a86-a5fb-f0bb2fa0155b
+		summarizeBy: none
+		sourceColumn: parametric_var
+
+		annotation SummarizationSetBy = Automatic
+
+	column cornish_fisher_var
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6bb21a69-e68f-5625-9cf7-20ac5a215785
+		summarizeBy: none
+		sourceColumn: cornish_fisher_var
+
+		annotation SummarizationSetBy = Automatic
+
+	partition tail_risk = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\tail_risk.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

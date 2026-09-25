@@ -1,0 +1,125 @@
+/// Net margin, ROA and FCF margin percentile within the filer's two-digit SIC peer group and fiscal year.
+table sector_percentiles
+	lineageTag: 2eda8088-af05-5072-ae2a-db2790535d9f
+
+	column filer_name
+		dataType: string
+		lineageTag: 0339fa2d-49a0-554f-833b-a76e67f15c31
+		summarizeBy: none
+		sourceColumn: filer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column cik
+		dataType: int64
+		isHidden
+		lineageTag: 39f9bf5f-7c3b-50ed-b62d-8b433bde57b6
+		summarizeBy: none
+		sourceColumn: cik
+
+		annotation SummarizationSetBy = Automatic
+
+	column sic2
+		dataType: int64
+		lineageTag: 3a345724-4b2d-57d7-b2d2-cf0d6f0c4ccb
+		summarizeBy: none
+		sourceColumn: sic2
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		isHidden
+		lineageTag: 6d902e21-9164-564e-ac68-ed2818f4adcf
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column peers
+		dataType: int64
+		lineageTag: c83bfd2d-1e00-5c8f-8551-66dc03d3c6a4
+		summarizeBy: none
+		sourceColumn: peers
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_margin
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 69d58387-5bce-5e12-87ef-a65e33fd50fe
+		summarizeBy: none
+		sourceColumn: net_margin
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_margin_pctile
+		dataType: double
+		formatString: 0.0%
+		lineageTag: b4fdaeee-6761-54f1-9319-73b881f0273c
+		summarizeBy: none
+		sourceColumn: net_margin_pctile
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_margin_decile
+		dataType: int64
+		lineageTag: d5d0a822-64b1-568e-b7e5-3ff7cbf138d3
+		summarizeBy: none
+		sourceColumn: net_margin_decile
+
+		annotation SummarizationSetBy = Automatic
+
+	column roa
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a291cec5-77ee-598f-af5c-2ba10862d8ff
+		summarizeBy: none
+		sourceColumn: roa
+
+		annotation SummarizationSetBy = Automatic
+
+	column roa_pctile
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 7db8125d-790b-57dc-9734-6be373122ac4
+		summarizeBy: none
+		sourceColumn: roa_pctile
+
+		annotation SummarizationSetBy = Automatic
+
+	column fcf_margin
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 59cab4af-ce19-504f-bef3-1378a38c587a
+		summarizeBy: none
+		sourceColumn: fcf_margin
+
+		annotation SummarizationSetBy = Automatic
+
+	column fcf_margin_pctile
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 2afb9446-74a3-5da2-bbab-c5227ee1a4c8
+		summarizeBy: none
+		sourceColumn: fcf_margin_pctile
+
+		annotation SummarizationSetBy = Automatic
+
+	column fcf_peers
+		dataType: int64
+		lineageTag: 4def76ab-0fa2-57be-bdc7-2efc850ccd6a
+		summarizeBy: none
+		sourceColumn: fcf_peers
+
+		annotation SummarizationSetBy = Automatic
+
+	partition sector_percentiles = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\sector_percentiles.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

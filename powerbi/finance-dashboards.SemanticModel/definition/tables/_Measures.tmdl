@@ -1,0 +1,345 @@
+/// Home of every explicit measure. The single column is hidden so the table shows as a measure table.
+table _Measures
+	lineageTag: bab3b6ba-2697-5a89-aecf-dad9471534f7
+
+	/// Distinct SEC filers in the current filter context.
+	measure Filers = DISTINCTCOUNT(fundamentals_annual[cik])
+		formatString: #,##0
+		displayFolder: Fundamentals
+		lineageTag: a3441046-977c-55d2-85d8-de31bcdd165f
+
+	/// Rows of the annual statement table in context.
+	measure Filer-years = COUNTROWS(fundamentals_annual)
+		formatString: #,##0
+		displayFolder: Fundamentals
+		lineageTag: bfdfc015-3000-587d-9cd3-3188be1022d9
+
+	/// Revenue, $ millions.
+	measure Revenue = DIVIDE(SUM(fundamentals_annual[revenue]), 1e6)
+		formatString: \$#,##0\M
+		displayFolder: Fundamentals
+		lineageTag: 4a04f2e7-0a1d-5cb3-9970-3313e9a9d8f0
+
+	/// Net income, $ millions.
+	measure 'Net income' = DIVIDE(SUM(fundamentals_annual[net_income]), 1e6)
+		formatString: \$#,##0\M
+		displayFolder: Fundamentals
+		lineageTag: 481c5d32-8355-57b3-b21e-4294be416753
+
+	/// Cash from operations, $ millions.
+	measure 'Operating cash flow' = DIVIDE(SUM(fundamentals_annual[operating_cash_flow]), 1e6)
+		formatString: \$#,##0\M
+		displayFolder: Fundamentals
+		lineageTag: 03bb9a28-26e1-5d51-a1e6-8827776b8e96
+
+	/// Total assets, $ millions.
+	measure 'Total assets' = DIVIDE(SUM(fundamentals_annual[total_assets]), 1e6)
+		formatString: \$#,##0\M
+		displayFolder: Fundamentals
+		lineageTag: 3680b2f8-6fdb-5639-82d6-286583dbe5a7
+
+	/// Net income over revenue.
+	measure 'Net margin' = DIVIDE([Net income], [Revenue])
+		formatString: 0.0%
+		displayFolder: Fundamentals
+		lineageTag: b7ddba4c-628e-5ff0-8b29-7dfdd7795bcc
+
+	/// Filer-years with any Piotroski signal evaluated.
+	measure 'Piotroski rows' = COUNTROWS(piotroski_f_score)
+		formatString: #,##0
+		displayFolder: Piotroski
+		lineageTag: db199381-957e-55c5-9992-0ef6a9590620
+
+	/// Filer-years where all nine signals could be evaluated and a full F-score exists.
+	measure 'Scored filer-years' = CALCULATE(COUNTROWS(piotroski_f_score), NOT ISBLANK(piotroski_f_score[f_score]))
+		formatString: #,##0
+		displayFolder: Piotroski
+		lineageTag: 091fbc90-5ab1-5d61-a925-c2c3b2e9445c
+
+	/// Median of the sum of available signals. Compare with Signals available.
+	measure 'Median F-score (partial)' = MEDIAN(piotroski_f_score[f_score_partial])
+		formatString: 0.0
+		displayFolder: Piotroski
+		lineageTag: 4d18080b-4ba5-5366-bfbc-39533f89096c
+
+	/// Mean of the sum of available signals.
+	measure 'Avg F-score (partial)' = AVERAGE(piotroski_f_score[f_score_partial])
+		formatString: 0.00
+		displayFolder: Piotroski
+		lineageTag: 9d32dfd0-df82-5264-808d-c30c81784f99
+
+	/// Mean number of the nine Piotroski signals that could be evaluated.
+	measure 'Signals available' = AVERAGE(piotroski_f_score[signals_available])
+		formatString: 0.0
+		displayFolder: Piotroski
+		lineageTag: eabf56df-45b0-56b5-9c9a-4a03665c0a64
+
+	/// Non-financial filers with at least $100M of assets and a Z''-score.
+	measure 'Altman filers' = COUNTROWS(altman_z_double_prime)
+		formatString: #,##0
+		displayFolder: Altman
+		lineageTag: d9757e1c-bba7-5731-ac67-e6dc83e7c10f
+
+	/// Share of scored filers in the Altman distress zone (Z'' below 1.1).
+	measure 'Share distress' = DIVIDE(CALCULATE(COUNTROWS(altman_z_double_prime), altman_z_double_prime[zone] = "distress"), COUNTROWS(altman_z_double_prime))
+		formatString: 0.0%
+		displayFolder: Altman
+		lineageTag: 2e92c760-587d-5d18-a028-0c22166f4e1d
+
+	/// Median Altman Z''-score.
+	measure 'Median Z''' = MEDIAN(altman_z_double_prime[z_double_prime])
+		formatString: 0.00
+		displayFolder: Altman
+		lineageTag: 0817456f-b50d-5046-8f6c-69333f5aaf8c
+
+	/// Mean percentile of net margin within SIC2 peer group.
+	measure 'Avg net margin percentile' = AVERAGE(sector_percentiles[net_margin_pctile])
+		formatString: 0.0%
+		displayFolder: Peers
+		lineageTag: 15054e74-e05a-50e2-80bd-0c289750dec4
+
+	/// Mean percentile of return on assets within SIC2 peer group.
+	measure 'Avg ROA percentile' = AVERAGE(sector_percentiles[roa_pctile])
+		formatString: 0.0%
+		displayFolder: Peers
+		lineageTag: 750a403b-4cc2-55ef-99c4-cddeee2e3b21
+
+	/// Mean percentile of free-cash-flow margin within SIC2 peer group.
+	measure 'Avg FCF margin percentile' = AVERAGE(sector_percentiles[fcf_margin_pctile])
+		formatString: 0.0%
+		displayFolder: Peers
+		lineageTag: a66ce7f1-30dd-5c5e-9e89-f2119f98ef51
+
+	/// Return on average equity.
+	measure ROE = AVERAGE(dupont[roe])
+		formatString: 0.0%
+		displayFolder: DuPont
+		lineageTag: 72652206-c4ef-5b0d-9e73-1129788845c6
+
+	/// Net income over revenue (DuPont factor 1).
+	measure 'DuPont net margin' = AVERAGE(dupont[net_margin])
+		formatString: 0.0%
+		displayFolder: DuPont
+		lineageTag: 361b3591-3c38-5d5b-af88-1e36195a16aa
+
+	/// Revenue over average assets (DuPont factor 2).
+	measure 'Asset turnover' = AVERAGE(dupont[asset_turnover])
+		formatString: 0.00
+		displayFolder: DuPont
+		lineageTag: f5454d78-ba75-5038-ab58-bd84603db460
+
+	/// Average assets over average equity (DuPont factor 3).
+	measure 'Equity multiplier' = AVERAGE(dupont[equity_multiplier])
+		formatString: 0.00
+		displayFolder: DuPont
+		lineageTag: 29021e68-8ca1-537d-b2cc-f5afcb3e8b37
+
+	/// Growth of 1 invested in the portfolio; exact per date.
+	measure 'Portfolio growth' = MAX(portfolio_daily[portfolio_growth])
+		formatString: 0.00
+		displayFolder: Portfolio
+		lineageTag: fef96307-7169-51c5-a722-f4a970079772
+
+	/// Growth of 1 invested in the benchmark; exact per date.
+	measure 'Benchmark growth' = MAX(portfolio_daily[benchmark_growth])
+		formatString: 0.00
+		displayFolder: Portfolio
+		lineageTag: 96f4fa46-bf86-5978-9cfa-74674bada561
+
+	/// Fraction below the running peak; the minimum over a period is its max drawdown.
+	measure 'Portfolio drawdown' = MIN(portfolio_daily[portfolio_drawdown])
+		formatString: 0.0%
+		displayFolder: Portfolio
+		lineageTag: 9d74780c-3cd8-5d9e-a070-9a67a940b566
+
+	/// Benchmark fraction below its running peak.
+	measure 'Benchmark drawdown' = MIN(portfolio_daily[benchmark_drawdown])
+		formatString: 0.0%
+		displayFolder: Portfolio
+		lineageTag: 8e7161f5-750f-599e-ba6e-4f039e80f70b
+
+	/// Compounded portfolio return over the dates in context.
+	measure 'Return in period' = PRODUCTX(portfolio_daily, 1 + portfolio_daily[portfolio_return]) - 1
+		formatString: 0.0%
+		displayFolder: Portfolio
+		lineageTag: c0d2af63-c48d-5cbc-b5da-8151a6717945
+
+	/// Geometric annualised return of the portfolio over the full history.
+	measure 'Annualized return' = CALCULATE(MAX(summary_metrics[annualized_return]), summary_metrics[scope] = "portfolio")
+		formatString: 0.0%
+		displayFolder: Summary
+		lineageTag: aad9f426-79a2-5e9e-8646-5bb0771ff59a
+
+	/// Annualised standard deviation of daily returns.
+	measure 'Annualized volatility' = CALCULATE(MAX(summary_metrics[annualized_volatility]), summary_metrics[scope] = "portfolio")
+		formatString: 0.0%
+		displayFolder: Summary
+		lineageTag: 8a792634-8f7e-5e3a-b0d3-52315373263b
+
+	/// Sharpe ratio at the configured risk-free rate.
+	measure Sharpe = CALCULATE(MAX(summary_metrics[sharpe]), summary_metrics[scope] = "portfolio")
+		formatString: 0.00
+		displayFolder: Summary
+		lineageTag: 77c6d1e7-fc4d-5f58-abe1-2561281de7e1
+
+	/// Deepest peak-to-trough decline over the full history.
+	measure 'Max drawdown' = CALCULATE(MAX(summary_metrics[max_drawdown]), summary_metrics[scope] = "portfolio")
+		formatString: 0.0%
+		displayFolder: Summary
+		lineageTag: f90cd9f0-29df-5fdd-ae53-045af045acb5
+
+	/// Benchmark geometric annualised return.
+	measure 'Benchmark annualized return' = CALCULATE(MAX(summary_metrics[annualized_return]), summary_metrics[scope] = "benchmark")
+		formatString: 0.0%
+		displayFolder: Summary
+		lineageTag: 09f920af-de96-592a-9365-7e426573b2ec
+
+	/// Historical one-day value at risk at 95% confidence.
+	measure 'VaR 95 (1-day)' = CALCULATE(MAX(tail_risk[historical_var]), tail_risk[level] = 0.95)
+		formatString: 0.00%
+		displayFolder: Tail risk
+		lineageTag: 03a56e39-cc47-56a7-a460-1acb077c2a77
+
+	/// Expected shortfall beyond the 95% VaR.
+	measure 'CVaR 95 (1-day)' = CALCULATE(MAX(tail_risk[historical_cvar]), tail_risk[level] = 0.95)
+		formatString: 0.00%
+		displayFolder: Tail risk
+		lineageTag: 0627644a-3fff-597d-abc2-486a4c643d5b
+
+	/// Historical one-day value at risk at 99% confidence.
+	measure 'VaR 99 (1-day)' = CALCULATE(MAX(tail_risk[historical_var]), tail_risk[level] = 0.99)
+		formatString: 0.00%
+		displayFolder: Tail risk
+		lineageTag: fb0e5795-d243-5798-8d7f-e90e2665ae5f
+
+	/// Target portfolio weight.
+	measure Weight = SUM(risk_contributions[weight])
+		formatString: 0.0%
+		displayFolder: Risk contribution
+		lineageTag: d7c55545-e25c-5911-9bec-51edcc0c244b
+
+	/// Euler component contribution as a share of portfolio volatility; sums to 100%.
+	measure 'Share of risk' = SUM(risk_contributions[share])
+		formatString: 0.0%
+		displayFolder: Risk contribution
+		lineageTag: 476a0f80-a6eb-5622-884a-08dd5154473a
+
+	/// Annualised volatility of the asset on its own.
+	measure 'Stand-alone volatility' = SUM(risk_contributions[volatility])
+		formatString: 0.0%
+		displayFolder: Risk contribution
+		lineageTag: 097c9d45-e0de-5f4d-a305-705d7e037402
+
+	/// Weighted average stand-alone volatility over portfolio volatility.
+	measure 'Diversification ratio' = MAX(risk_contributions[diversification_ratio])
+		formatString: 0.00
+		displayFolder: Risk contribution
+		lineageTag: 89bdd897-6fd4-5ffe-a46f-01656e196ad8
+
+	/// Pearson correlation of daily returns.
+	measure Correlation = AVERAGE(correlation_long[correlation])
+		formatString: 0.00
+		displayFolder: Correlation
+		lineageTag: d4956b55-bb47-54f5-aa79-dfcbe3c283e4
+
+	/// TRUE when exactly one filer is in the filter context.
+	measure 'Filer selected' = HASONEVALUE(dim_company[cik])
+		displayFolder: Company page
+		lineageTag: be1b75d8-5629-540b-8442-acf6abb4ebe5
+
+	/// Revenue of the selected filer in the latest fiscal year in context, $ millions.
+	measure 'Revenue (filer)' = VAR y = MAX(fundamentals_annual[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Revenue], fundamentals_annual[fiscal_year] = y))
+		formatString: \$#,##0\M
+		displayFolder: Company page
+		lineageTag: 0a9fa7c8-0440-58e4-b1d5-f372c6dd502d
+
+	/// Net income of the selected filer in the latest fiscal year in context, $ millions.
+	measure 'Net income (filer)' = VAR y = MAX(fundamentals_annual[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Net income], fundamentals_annual[fiscal_year] = y))
+		formatString: \$#,##0\M
+		displayFolder: Company page
+		lineageTag: 2c3354a4-94ef-5981-b15d-57cf22b54a45
+
+	/// Operating cash flow of the selected filer in the latest fiscal year in context, $ millions.
+	measure 'Operating cash flow (filer)' = VAR y = MAX(fundamentals_annual[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Operating cash flow], fundamentals_annual[fiscal_year] = y))
+		formatString: \$#,##0\M
+		displayFolder: Company page
+		lineageTag: 0a26d20b-fbcb-5435-8b8c-87f21f7d4438
+
+	/// Return on average equity of the selected filer, latest year in context.
+	measure 'ROE (filer)' = VAR y = MAX(dupont[fiscal_year]) RETURN IF([Filer selected], CALCULATE([ROE], dupont[fiscal_year] = y))
+		formatString: 0.0%
+		displayFolder: Company page
+		lineageTag: c865f37f-aed7-54ca-ba90-8aa84a6bbfdf
+
+	/// ROA percentile within peers for the selected filer, latest year in context.
+	measure 'Avg ROA percentile (filer)' = VAR y = MAX(sector_percentiles[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Avg ROA percentile], sector_percentiles[fiscal_year] = y))
+		formatString: 0.0%
+		displayFolder: Company page
+		lineageTag: a29058e6-8fd9-5383-9eae-bb77b30fc3a1
+
+	/// Net margin percentile within peers for the selected filer, latest year in context.
+	measure 'Avg net margin percentile (filer)' = VAR y = MAX(sector_percentiles[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Avg net margin percentile], sector_percentiles[fiscal_year] = y))
+		formatString: 0.0%
+		displayFolder: Company page
+		lineageTag: 85bd3982-bdf1-57a0-9961-e6ed6c908292
+
+	/// FCF margin percentile within peers for the selected filer, latest year in context.
+	measure 'Avg FCF margin percentile (filer)' = VAR y = MAX(sector_percentiles[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Avg FCF margin percentile], sector_percentiles[fiscal_year] = y))
+		formatString: 0.0%
+		displayFolder: Company page
+		lineageTag: 6f2efd99-c311-5e15-aa17-5b42e3daed1d
+
+	/// Partial F-score of the selected filer, latest year in context.
+	measure 'Avg F-score (filer)' = VAR y = MAX(piotroski_f_score[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Avg F-score (partial)], piotroski_f_score[fiscal_year] = y))
+		formatString: 0.00
+		displayFolder: Company page
+		lineageTag: 11e72218-4dba-5a7b-a6d1-9c53b838ec2e
+
+	/// Signals evaluated for the selected filer, latest year in context.
+	measure 'Signals available (filer)' = VAR y = MAX(piotroski_f_score[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Signals available], piotroski_f_score[fiscal_year] = y))
+		formatString: 0.0
+		displayFolder: Company page
+		lineageTag: a2250096-dfd8-518c-b4e0-72a0cb3406f2
+
+	/// DuPont net margin of the selected filer, latest year in context.
+	measure 'DuPont net margin (filer)' = VAR y = MAX(dupont[fiscal_year]) RETURN IF([Filer selected], CALCULATE([DuPont net margin], dupont[fiscal_year] = y))
+		formatString: 0.0%
+		displayFolder: Company page
+		lineageTag: f7d76489-ab8c-5379-88d0-f6ee975eaa2e
+
+	/// Asset turnover of the selected filer, latest year in context.
+	measure 'Asset turnover (filer)' = VAR y = MAX(dupont[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Asset turnover], dupont[fiscal_year] = y))
+		formatString: 0.00
+		displayFolder: Company page
+		lineageTag: c6abdb24-d4db-5746-b970-a3ada7d627c7
+
+	/// Equity multiplier of the selected filer, latest year in context.
+	measure 'Equity multiplier (filer)' = VAR y = MAX(dupont[fiscal_year]) RETURN IF([Filer selected], CALCULATE([Equity multiplier], dupont[fiscal_year] = y))
+		formatString: 0.00
+		displayFolder: Company page
+		lineageTag: f5d09128-5b96-5b60-8b55-b913788ecd07
+
+	/// Compounded portfolio return for a calendar month.
+	measure 'Monthly return' = SUM(monthly_returns_long[monthly_return])
+		formatString: 0.0%
+		displayFolder: Portfolio
+		lineageTag: cd54fcff-e361-55e9-9dc6-32715d4d08f4
+
+	column Column
+		dataType: string
+		isHidden
+		lineageTag: 8adaef85-2b5f-57a4-b649-2a0683861769
+		summarizeBy: none
+		sourceColumn: Column
+
+		annotation SummarizationSetBy = Automatic
+
+	partition _Measures = m
+		mode: import
+		source =
+				let
+				    Source = #table(type table [Column = text], {})
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

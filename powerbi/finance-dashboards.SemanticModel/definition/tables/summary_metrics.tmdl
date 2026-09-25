@@ -1,0 +1,138 @@
+/// Performance summary for the portfolio and its benchmark.
+table summary_metrics
+	lineageTag: 7ab48a50-aea3-524d-959e-acf21cdfc0d8
+
+	column scope
+		dataType: string
+		lineageTag: 8794ef61-f1a8-586d-91f5-eea9ef35ba74
+		summarizeBy: none
+		sourceColumn: scope
+
+		annotation SummarizationSetBy = Automatic
+
+	column periods
+		dataType: double
+		formatString: 0.00
+		lineageTag: eef20a14-d114-52b5-99b4-5a1900af0c30
+		summarizeBy: none
+		sourceColumn: periods
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_return
+		dataType: double
+		formatString: 0.0%
+		lineageTag: de0141e9-e296-5406-854d-043199cbb5cf
+		summarizeBy: none
+		sourceColumn: total_return
+
+		annotation SummarizationSetBy = Automatic
+
+	column annualized_return
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a550125a-c56d-5884-ad4c-80f1e0c8a453
+		summarizeBy: none
+		sourceColumn: annualized_return
+
+		annotation SummarizationSetBy = Automatic
+
+	column annualized_volatility
+		dataType: double
+		formatString: 0.0%
+		lineageTag: d8524c4c-a7ad-53ef-a622-656c8f31c176
+		summarizeBy: none
+		sourceColumn: annualized_volatility
+
+		annotation SummarizationSetBy = Automatic
+
+	column sharpe
+		dataType: double
+		formatString: 0.00
+		lineageTag: d6af2671-ce90-52f4-80c4-484e420711c4
+		summarizeBy: none
+		sourceColumn: sharpe
+
+		annotation SummarizationSetBy = Automatic
+
+	column sortino
+		dataType: double
+		formatString: 0.00
+		lineageTag: daab80d9-2798-57ab-b5f4-87d02d1e5f0a
+		summarizeBy: none
+		sourceColumn: sortino
+
+		annotation SummarizationSetBy = Automatic
+
+	column max_drawdown
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 3cfb9543-dc5c-51ba-a618-9aaf6b00c0bf
+		summarizeBy: none
+		sourceColumn: max_drawdown
+
+		annotation SummarizationSetBy = Automatic
+
+	column calmar
+		dataType: double
+		formatString: 0.00
+		lineageTag: 31f64bc1-55a2-56a2-91e3-22459186ef14
+		summarizeBy: none
+		sourceColumn: calmar
+
+		annotation SummarizationSetBy = Automatic
+
+	column skew
+		dataType: double
+		formatString: 0.00
+		lineageTag: ecf930ba-f127-5b4f-bb27-4659a998632b
+		summarizeBy: none
+		sourceColumn: skew
+
+		annotation SummarizationSetBy = Automatic
+
+	column excess_kurtosis
+		dataType: double
+		formatString: 0.00
+		lineageTag: 056d3c35-f3b2-54ca-a945-1390b33e7b9e
+		summarizeBy: none
+		sourceColumn: excess_kurtosis
+
+		annotation SummarizationSetBy = Automatic
+
+	column best_period
+		dataType: double
+		formatString: 0.00
+		lineageTag: 1c723b68-7282-5a79-bf3e-bb9ca60361b4
+		summarizeBy: none
+		sourceColumn: best_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column worst_period
+		dataType: double
+		formatString: 0.00
+		lineageTag: 119a8fdc-f80d-5bdc-bdef-062d86f8f8a8
+		summarizeBy: none
+		sourceColumn: worst_period
+
+		annotation SummarizationSetBy = Automatic
+
+	column positive_share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 8cc66f16-84c4-5d97-8b8a-68e4024e02bd
+		summarizeBy: none
+		sourceColumn: positive_share
+
+		annotation SummarizationSetBy = Automatic
+
+	partition summary_metrics = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\summary_metrics.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

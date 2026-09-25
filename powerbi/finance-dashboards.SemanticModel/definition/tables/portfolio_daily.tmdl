@@ -1,0 +1,78 @@
+/// Portfolio and benchmark daily return, growth of 1 and drawdown from peak.
+table portfolio_daily
+	lineageTag: 7adf037b-21f6-52fa-8e58-828d28e92a29
+
+	column date
+		dataType: dateTime
+		isHidden
+		lineageTag: ae875d36-87f2-59f9-8146-b394ea982ee7
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column portfolio_return
+		dataType: double
+		formatString: 0.0%
+		lineageTag: a6f19c1b-88a9-5ba3-be1f-4662f644ca3e
+		summarizeBy: none
+		sourceColumn: portfolio_return
+
+		annotation SummarizationSetBy = Automatic
+
+	column benchmark_return
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 6bf27322-755b-50cb-b028-f055612423af
+		summarizeBy: none
+		sourceColumn: benchmark_return
+
+		annotation SummarizationSetBy = Automatic
+
+	column portfolio_growth
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 036fdf78-954a-529e-9bf7-d7ba2faa4ea0
+		summarizeBy: none
+		sourceColumn: portfolio_growth
+
+		annotation SummarizationSetBy = Automatic
+
+	column benchmark_growth
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 80cbc01b-c436-51ed-8931-3f391cac3c2d
+		summarizeBy: none
+		sourceColumn: benchmark_growth
+
+		annotation SummarizationSetBy = Automatic
+
+	column portfolio_drawdown
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 65e4639a-8f1e-565a-811b-148afcdc18dd
+		summarizeBy: none
+		sourceColumn: portfolio_drawdown
+
+		annotation SummarizationSetBy = Automatic
+
+	column benchmark_drawdown
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 25c2eee6-299b-5738-8ad9-0575d701fd26
+		summarizeBy: none
+		sourceColumn: benchmark_drawdown
+
+		annotation SummarizationSetBy = Automatic
+
+	partition portfolio_daily = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\portfolio_daily.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

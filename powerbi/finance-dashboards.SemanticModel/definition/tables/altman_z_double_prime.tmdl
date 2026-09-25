@@ -1,0 +1,100 @@
+/// Altman Z''-score components and zone, latest fiscal year per non-financial filer with at least $100M of assets.
+table altman_z_double_prime
+	lineageTag: 64fdb7c5-083c-58ba-b6ad-452571aeb6bf
+
+	column filer_name
+		dataType: string
+		lineageTag: 7cd0d331-8495-5b9b-a32e-495d23d66b26
+		summarizeBy: none
+		sourceColumn: filer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column cik
+		dataType: int64
+		isHidden
+		lineageTag: 24fa0eb3-df8d-5883-a530-87a7fbe5cfe7
+		summarizeBy: none
+		sourceColumn: cik
+
+		annotation SummarizationSetBy = Automatic
+
+	column sic2
+		dataType: int64
+		lineageTag: f74cc37d-eb18-506d-917a-e416e1be4d05
+		summarizeBy: none
+		sourceColumn: sic2
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		isHidden
+		lineageTag: 29efec16-5ac8-5872-9d87-ffe6ca7e37e2
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column wc_to_assets
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 8de7d13c-0ff4-5014-90da-6a9c4ecac920
+		summarizeBy: none
+		sourceColumn: wc_to_assets
+
+		annotation SummarizationSetBy = Automatic
+
+	column re_to_assets
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 98288013-03b4-5204-b84d-4837a37fe897
+		summarizeBy: none
+		sourceColumn: re_to_assets
+
+		annotation SummarizationSetBy = Automatic
+
+	column ebit_to_assets
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 0021a3f5-878d-59d0-908a-a76a61aa8bb4
+		summarizeBy: none
+		sourceColumn: ebit_to_assets
+
+		annotation SummarizationSetBy = Automatic
+
+	column equity_to_liabilities
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 1028c6de-1888-576f-b15d-e95a3462a241
+		summarizeBy: none
+		sourceColumn: equity_to_liabilities
+
+		annotation SummarizationSetBy = Automatic
+
+	column z_double_prime
+		dataType: double
+		formatString: 0.00
+		lineageTag: 42ff46b7-33da-5d47-9145-5a799df7d044
+		summarizeBy: none
+		sourceColumn: z_double_prime
+
+		annotation SummarizationSetBy = Automatic
+
+	column zone
+		dataType: string
+		lineageTag: e5578a90-10ae-59f5-aff8-af0d4ab5e07c
+		summarizeBy: none
+		sourceColumn: zone
+
+		annotation SummarizationSetBy = Automatic
+
+	partition altman_z_double_prime = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\altman_z_double_prime.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

@@ -1,0 +1,25 @@
+/// Fiscal-year dimension shared by every fundamentals fact, so one slicer filters them all.
+table dim_fiscal_year
+	lineageTag: 4eb3572e-8ec1-5231-9e3c-93a02287dea2
+
+	column fiscal_year
+		dataType: int64
+		isKey
+		formatString: 0
+		lineageTag: 01558867-8c06-50bb-a608-b6e34bf09555
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_fiscal_year = m
+		mode: import
+		source =
+				let
+				    Years = {2020..2025},
+				    AsTable = Table.FromList(Years, Splitter.SplitByNothing(), {"fiscal_year"}),
+				    Typed = Table.TransformColumnTypes(AsTable, {{"fiscal_year", Int64.Type}})
+				in
+				    Typed
+
+	annotation PBI_ResultType = Table

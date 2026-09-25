@@ -32,6 +32,7 @@ GRAIN = {
     "asset_levels_long": (["date", "asset_id"], 5000),
     "risk_contributions": (["asset_id"], 3),
     "monthly_returns": (["year"], 3),
+    "monthly_returns_long": (["year", "month"], 30),
     "summary_metrics": (["scope"], 2),
     "tail_risk": (["level"], 2),
     "correlation_long": (["asset_a", "asset_b"], 9),

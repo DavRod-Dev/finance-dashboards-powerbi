@@ -1,0 +1,91 @@
+/// Calendar covering the portfolio history, one row per day. Marked as the date table.
+table dim_date
+	lineageTag: e731d7c6-1747-5844-904e-1c6bda715a1d
+	dataCategory: Time
+
+	column Date
+		dataType: dateTime
+		isKey
+		formatString: yyyy-mm-dd
+		lineageTag: 83fcceb9-b2bd-5c19-b83e-4fd7eee25855
+		summarizeBy: none
+		sourceColumn: Date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column Year
+		dataType: int64
+		formatString: 0
+		lineageTag: 8a4ff25f-aff0-546e-8dd7-faef80092a06
+		summarizeBy: none
+		sourceColumn: Year
+
+		annotation SummarizationSetBy = Automatic
+
+	column Quarter
+		dataType: string
+		lineageTag: bbe10d50-fae0-58c2-8bdb-a3f1d949b02e
+		summarizeBy: none
+		sourceColumn: Quarter
+
+		annotation SummarizationSetBy = Automatic
+
+	column Month
+		dataType: int64
+		formatString: 0
+		lineageTag: 3d880b6b-ee08-570d-bf96-08c7fa598ac9
+		summarizeBy: none
+		sourceColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Month name'
+		dataType: string
+		lineageTag: 805b242f-86f5-5652-ae10-6133f6c567ed
+		summarizeBy: none
+		sourceColumn: Month name
+		sortByColumn: Month
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year month'
+		dataType: string
+		lineageTag: e1d00656-cd32-5a7a-8317-d6e4a8bf64f2
+		summarizeBy: none
+		sourceColumn: Year month
+		sortByColumn: 'Year month key'
+
+		annotation SummarizationSetBy = Automatic
+
+	column 'Year month key'
+		dataType: int64
+		isHidden
+		formatString: 0
+		lineageTag: 7183c15c-58b3-5855-961b-bb20ff5deb4e
+		summarizeBy: none
+		sourceColumn: Year month key
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_date = m
+		mode: import
+		source =
+				let
+				    StartDate = #date(2016, 10, 4),
+				    EndDate = #date(2026, 9, 15),
+				    Days = Duration.Days(EndDate - StartDate) + 1,
+				    Dates = List.Dates(StartDate, Days, #duration(1, 0, 0, 0)),
+				    AsTable = Table.FromList(Dates, Splitter.SplitByNothing(), {"Date"}),
+				    Typed = Table.TransformColumnTypes(AsTable, {{"Date", type date}}),
+				    Year = Table.AddColumn(Typed, "Year", each Date.Year([Date]), Int64.Type),
+				    Quarter = Table.AddColumn(Year, "Quarter", each "Q" & Text.From(Date.QuarterOfYear([Date])), type text),
+				    Month = Table.AddColumn(Quarter, "Month", each Date.Month([Date]), Int64.Type),
+				    MonthName = Table.AddColumn(Month, "Month name", each Date.ToText([Date], "MMM"), type text),
+				    YearMonth = Table.AddColumn(MonthName, "Year month", each Date.ToText([Date], "yyyy-MM"), type text),
+				    YearMonthKey = Table.AddColumn(YearMonth, "Year month key", each Date.Year([Date]) * 100 + Date.Month([Date]), Int64.Type)
+				in
+				    YearMonthKey
+
+	annotation PBI_ResultType = Table

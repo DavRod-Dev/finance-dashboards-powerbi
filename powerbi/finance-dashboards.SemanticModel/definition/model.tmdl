@@ -1,0 +1,28 @@
+model Model
+	culture: en-US
+	defaultPowerBIDataSourceVersion: powerBI_V3
+	sourceQueryCulture: en-US
+	dataAccessOptions
+		legacyRedirects
+		returnErrorValuesAsNull
+
+annotation PBI_QueryOrder = ["DataFolder", "dim_company", "dim_fiscal_year", "dim_date", "fundamentals_annual", "piotroski_f_score", "altman_z_double_prime", "sector_percentiles", "dupont", "portfolio_daily", "asset_returns_long", "risk_contributions", "monthly_returns_long", "summary_metrics", "tail_risk", "correlation_long", "_Measures"]
+
+annotation __PBI_TimeIntelligenceEnabled = 0
+
+ref table dim_company
+ref table dim_fiscal_year
+ref table dim_date
+ref table fundamentals_annual
+ref table piotroski_f_score
+ref table altman_z_double_prime
+ref table sector_percentiles
+ref table dupont
+ref table portfolio_daily
+ref table asset_returns_long
+ref table risk_contributions
+ref table monthly_returns_long
+ref table summary_metrics
+ref table tail_risk
+ref table correlation_long
+ref table _Measures

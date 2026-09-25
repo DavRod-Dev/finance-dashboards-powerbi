@@ -1,0 +1,54 @@
+/// Pairwise correlation of daily asset returns.
+table correlation_long
+	lineageTag: c4b202f6-82a3-5649-8383-6e90c58d98fa
+
+	column asset_a
+		dataType: string
+		lineageTag: 0dee1902-7a6a-5ec2-91aa-b6bc0e3a6971
+		summarizeBy: none
+		sourceColumn: asset_a
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_b
+		dataType: string
+		lineageTag: 6df9562a-23c8-503a-ab83-15cf79afb6c5
+		summarizeBy: none
+		sourceColumn: asset_b
+
+		annotation SummarizationSetBy = Automatic
+
+	column correlation
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f24320fc-0224-5ac7-8069-3be2e43c4a8c
+		summarizeBy: none
+		sourceColumn: correlation
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_a_label
+		dataType: string
+		lineageTag: a2bba259-c262-5ddd-83af-a807b006c713
+		summarizeBy: none
+		sourceColumn: asset_a_label
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset_b_label
+		dataType: string
+		lineageTag: 9d14fa27-482f-510a-a6cf-f6df737049c1
+		summarizeBy: none
+		sourceColumn: asset_b_label
+
+		annotation SummarizationSetBy = Automatic
+
+	partition correlation_long = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\correlation_long.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

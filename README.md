@@ -30,6 +30,7 @@ and CSV (fallback) into `data/`. Power BI Desktop reads both natively.
 | `asset_levels_long` | 14,622 | day x asset price level | portfolio-risk-report |
 | `risk_contributions` | 6 | asset: weight, volatility, marginal and component risk, share | portfolio-risk-report |
 | `monthly_returns` | 11 | year x month return grid | portfolio-risk-report |
+| `monthly_returns_long` | 117 | one row per year and month, for a matrix visual | portfolio-risk-report |
 | `summary_metrics` | 2 | portfolio and benchmark: return, vol, Sharpe, Sortino, max drawdown, Calmar | portfolio-risk-report |
 | `tail_risk` | 2 | VaR and CVaR at 95 and 99 | portfolio-risk-report |
 | `correlation_long` | 36 | asset pair correlation | portfolio-risk-report |

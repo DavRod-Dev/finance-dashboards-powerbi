@@ -1,0 +1,47 @@
+relationship bb7d9e65-fe75-5e3f-8ec1-cc1611b96fcd
+	fromColumn: fundamentals_annual.cik
+	toColumn: dim_company.cik
+
+relationship 895cad18-990e-5e53-9679-6bbdfb1f0f06
+	fromColumn: piotroski_f_score.cik
+	toColumn: dim_company.cik
+
+relationship c78aebb9-5c97-5def-9411-a11a42b444ac
+	fromColumn: altman_z_double_prime.cik
+	toColumn: dim_company.cik
+
+relationship 3ca08e02-665c-561c-b825-111cb846b7a7
+	fromColumn: sector_percentiles.cik
+	toColumn: dim_company.cik
+
+relationship be75c3d7-3cfc-5614-b3d6-d12fd7030014
+	fromColumn: dupont.cik
+	toColumn: dim_company.cik
+
+relationship 038dada4-178a-5dbb-bfa5-2486c91a62d9
+	fromColumn: fundamentals_annual.fiscal_year
+	toColumn: dim_fiscal_year.fiscal_year
+
+relationship 016081d6-02c8-52bc-bc16-5de03ed8c013
+	fromColumn: piotroski_f_score.fiscal_year
+	toColumn: dim_fiscal_year.fiscal_year
+
+relationship e263e245-db1b-5c85-886b-90244cc4f779
+	fromColumn: altman_z_double_prime.fiscal_year
+	toColumn: dim_fiscal_year.fiscal_year
+
+relationship 56a0fe49-ff81-5c25-a8b9-6d8e111670ef
+	fromColumn: sector_percentiles.fiscal_year
+	toColumn: dim_fiscal_year.fiscal_year
+
+relationship c611392f-a374-50ea-a835-fb3726941b82
+	fromColumn: dupont.fiscal_year
+	toColumn: dim_fiscal_year.fiscal_year
+
+relationship b6adbc4f-b131-58fc-94e2-8e3691a2b3f5
+	fromColumn: portfolio_daily.date
+	toColumn: dim_date.Date
+
+relationship ceffd5c1-9f3b-52a8-b3a2-a0728070b7db
+	fromColumn: asset_returns_long.date
+	toColumn: dim_date.Date

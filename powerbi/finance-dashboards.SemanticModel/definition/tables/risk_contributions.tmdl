@@ -1,0 +1,84 @@
+/// Euler risk decomposition: weight, stand-alone volatility, marginal and component contribution, share of portfolio risk.
+table risk_contributions
+	lineageTag: 38e73f31-9cb0-56bd-a7c2-d7e9a4052ac1
+
+	column asset_id
+		dataType: string
+		isHidden
+		lineageTag: 0b12b42c-e841-5a32-8e97-90a7b07732b7
+		summarizeBy: none
+		sourceColumn: asset_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column weight
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e60db98d-e183-5dcc-a989-88ca15f4c14e
+		summarizeBy: none
+		sourceColumn: weight
+
+		annotation SummarizationSetBy = Automatic
+
+	column volatility
+		dataType: double
+		formatString: 0.0%
+		lineageTag: e4042d2e-b994-5a7c-8b5e-3d46ef020992
+		summarizeBy: none
+		sourceColumn: volatility
+
+		annotation SummarizationSetBy = Automatic
+
+	column marginal
+		dataType: double
+		formatString: 0.00
+		lineageTag: dff3b273-6663-5fe5-aec4-25a425d81a57
+		summarizeBy: none
+		sourceColumn: marginal
+
+		annotation SummarizationSetBy = Automatic
+
+	column component
+		dataType: double
+		formatString: 0.00
+		lineageTag: 46edc100-6eb9-5f39-b280-b8b2728bdfcf
+		summarizeBy: none
+		sourceColumn: component
+
+		annotation SummarizationSetBy = Automatic
+
+	column share
+		dataType: double
+		formatString: 0.0%
+		lineageTag: f38cd00e-ffb4-5c05-8613-92e037eaf517
+		summarizeBy: none
+		sourceColumn: share
+
+		annotation SummarizationSetBy = Automatic
+
+	column diversification_ratio
+		dataType: double
+		formatString: 0.00
+		lineageTag: 8516b62d-b8b7-572e-8adf-f77f486988b7
+		summarizeBy: none
+		sourceColumn: diversification_ratio
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset
+		dataType: string
+		lineageTag: 7b83f893-3a38-582a-a3bb-4b473a0006a7
+		summarizeBy: none
+		sourceColumn: asset
+
+		annotation SummarizationSetBy = Automatic
+
+	partition risk_contributions = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\risk_contributions.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

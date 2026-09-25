@@ -1,0 +1,115 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "name": "7c45866865e14d993c27",
+  "position": {
+    "x": 856,
+    "y": 248,
+    "z": 1000,
+    "height": 214,
+    "width": 400,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "scatterChart",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_company"
+                    }
+                  },
+                  "Property": "filer_name"
+                }
+              },
+              "queryRef": "dim_company.filer_name",
+              "nativeQueryRef": "filer_name",
+              "active": true
+            }
+          ]
+        },
+        "X": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg ROA percentile"
+                }
+              },
+              "queryRef": "_Measures.Avg ROA percentile",
+              "nativeQueryRef": "Avg ROA percentile"
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg net margin percentile"
+                }
+              },
+              "queryRef": "_Measures.Avg net margin percentile",
+              "nativeQueryRef": "Avg net margin percentile"
+            }
+          ]
+        },
+        "Size": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Total assets"
+                }
+              },
+              "queryRef": "_Measures.Total assets",
+              "nativeQueryRef": "Total assets"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'ROA percentile vs net-margin percentile, sized by assets'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

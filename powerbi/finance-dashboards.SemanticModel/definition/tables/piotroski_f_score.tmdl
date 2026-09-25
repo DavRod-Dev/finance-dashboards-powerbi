@@ -1,0 +1,135 @@
+/// Piotroski signals per filer-year. f_score is set only when all nine signals could be evaluated; f_score_partial sums the available ones.
+table piotroski_f_score
+	lineageTag: c43d59a2-4a99-5cc5-9653-81ea14f5ce43
+
+	column filer_name
+		dataType: string
+		lineageTag: bf8610e8-b3bf-5b0e-923f-81908a7cec90
+		summarizeBy: none
+		sourceColumn: filer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column cik
+		dataType: int64
+		isHidden
+		lineageTag: 1f543917-4c7b-5155-8f2c-5cf05d872356
+		summarizeBy: none
+		sourceColumn: cik
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		isHidden
+		lineageTag: 30e5ae68-43b3-540e-95d5-912e14c04bc5
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column f_score
+		dataType: int64
+		lineageTag: 1504353e-3cf6-5086-b531-99621c1801c5
+		summarizeBy: none
+		sourceColumn: f_score
+
+		annotation SummarizationSetBy = Automatic
+
+	column signals_available
+		dataType: int64
+		lineageTag: 2d823b49-f252-5907-9b82-6551854449e4
+		summarizeBy: none
+		sourceColumn: signals_available
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_roa_positive
+		dataType: int64
+		lineageTag: 02a302ad-ee3f-593e-9c74-0f7109af6543
+		summarizeBy: none
+		sourceColumn: s_roa_positive
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_ocf_positive
+		dataType: int64
+		lineageTag: d3a39083-586b-5cbf-bc3d-9dc13b4b7615
+		summarizeBy: none
+		sourceColumn: s_ocf_positive
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_roa_improved
+		dataType: int64
+		lineageTag: 84260259-8a90-5e8a-b75f-ff1069d7bd7b
+		summarizeBy: none
+		sourceColumn: s_roa_improved
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_accruals
+		dataType: int64
+		lineageTag: 18b25314-e88b-525b-8fff-a14ce9b1f003
+		summarizeBy: none
+		sourceColumn: s_accruals
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_leverage_fell
+		dataType: int64
+		lineageTag: 0d825396-3169-5998-8981-2f9cb45c5a5f
+		summarizeBy: none
+		sourceColumn: s_leverage_fell
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_liquidity_rose
+		dataType: int64
+		lineageTag: f174c0b7-f77d-5ba4-8669-b37000ed39fa
+		summarizeBy: none
+		sourceColumn: s_liquidity_rose
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_no_dilution
+		dataType: int64
+		lineageTag: 6eb185d2-14df-5559-847e-651860be5447
+		summarizeBy: none
+		sourceColumn: s_no_dilution
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_margin_rose
+		dataType: int64
+		lineageTag: b78cbe56-1463-50bf-9604-6a23ea04df21
+		summarizeBy: none
+		sourceColumn: s_margin_rose
+
+		annotation SummarizationSetBy = Automatic
+
+	column s_turnover_rose
+		dataType: int64
+		lineageTag: a32e3b06-339e-5f9a-a208-abaaf493ae99
+		summarizeBy: none
+		sourceColumn: s_turnover_rose
+
+		annotation SummarizationSetBy = Automatic
+
+	column f_score_partial
+		dataType: int64
+		lineageTag: 2b702539-e741-5af3-89bc-293dd1ff460b
+		summarizeBy: none
+		sourceColumn: f_score_partial
+
+		annotation SummarizationSetBy = Automatic
+
+	partition piotroski_f_score = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\piotroski_f_score.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

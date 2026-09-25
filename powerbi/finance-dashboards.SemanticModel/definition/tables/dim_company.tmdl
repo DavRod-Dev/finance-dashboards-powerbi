@@ -1,0 +1,86 @@
+/// One row per SEC filer: name, SIC code, sector label and the fiscal years reported.
+table dim_company
+	lineageTag: fce8895a-bb2d-5f98-9381-d126a95c4aae
+
+	column cik
+		dataType: int64
+		isKey
+		lineageTag: 7c080df4-5778-5d6d-ac1f-108fd246d55d
+		summarizeBy: none
+		sourceColumn: cik
+
+		annotation SummarizationSetBy = Automatic
+
+	column filer_name
+		dataType: string
+		lineageTag: 45b64f64-942b-550e-a24f-0164307bd0fe
+		summarizeBy: none
+		sourceColumn: filer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column sic
+		dataType: int64
+		lineageTag: 3b6e8607-51f2-5db3-a0f8-01116c8202e2
+		summarizeBy: none
+		sourceColumn: sic
+
+		annotation SummarizationSetBy = Automatic
+
+	column sic2
+		dataType: int64
+		lineageTag: d8f24347-dd98-53a3-a9c1-e6eee08e00e5
+		summarizeBy: none
+		sourceColumn: sic2
+
+		annotation SummarizationSetBy = Automatic
+
+	column sector
+		dataType: string
+		lineageTag: 9b4f4af3-e382-51d6-ad0b-91532e17733c
+		summarizeBy: none
+		sourceColumn: sector
+
+		annotation SummarizationSetBy = Automatic
+
+	column filer_status
+		dataType: string
+		lineageTag: 9fb603b7-4154-50ab-b364-da3889059731
+		summarizeBy: none
+		sourceColumn: filer_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column first_fiscal_year
+		dataType: int64
+		lineageTag: a90697e3-b08d-5d5d-a0b0-d7befabfd001
+		summarizeBy: none
+		sourceColumn: first_fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column last_fiscal_year
+		dataType: int64
+		lineageTag: 6e57bdf5-ef8e-59bf-99a0-455f6e82cceb
+		summarizeBy: none
+		sourceColumn: last_fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column years_reported
+		dataType: int64
+		lineageTag: 284e8cee-0903-59ee-9d03-877fc38532e6
+		summarizeBy: none
+		sourceColumn: years_reported
+
+		annotation SummarizationSetBy = Automatic
+
+	partition dim_company = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\dim_company.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

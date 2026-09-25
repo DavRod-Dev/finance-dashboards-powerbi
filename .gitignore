@@ -4,3 +4,8 @@
 # large CSV fallbacks; Parquet is the committed format
 data/*.csv
 __pycache__/
+
+# Power BI Desktop per-user state and data cache inside the project
+powerbi/**/.pbi/
+*.abf
+

@@ -1,0 +1,117 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "name": "1a146184cc276d857090",
+  "position": {
+    "x": 648,
+    "y": 484,
+    "z": 1000,
+    "height": 220,
+    "width": 608,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "tableEx",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Values": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "dim_fiscal_year"
+                    }
+                  },
+                  "Property": "fiscal_year"
+                }
+              },
+              "queryRef": "dim_fiscal_year.fiscal_year",
+              "nativeQueryRef": "fiscal_year"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg net margin percentile (filer)"
+                }
+              },
+              "queryRef": "_Measures.Avg net margin percentile (filer)",
+              "nativeQueryRef": "Avg net margin percentile (filer)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg ROA percentile (filer)"
+                }
+              },
+              "queryRef": "_Measures.Avg ROA percentile (filer)",
+              "nativeQueryRef": "Avg ROA percentile (filer)"
+            },
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Avg FCF margin percentile (filer)"
+                }
+              },
+              "queryRef": "_Measures.Avg FCF margin percentile (filer)",
+              "nativeQueryRef": "Avg FCF margin percentile (filer)"
+            }
+          ]
+        }
+      }
+    },
+    "objects": {
+      "total": [
+        {
+          "properties": {
+            "totals": {
+              "expr": {
+                "Literal": {
+                  "Value": "false"
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Percentile within SIC2 peer group by fiscal year'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

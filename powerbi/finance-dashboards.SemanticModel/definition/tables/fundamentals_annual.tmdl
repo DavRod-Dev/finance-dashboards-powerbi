@@ -1,0 +1,253 @@
+/// One row per filer per fiscal year end: income statement, balance sheet and cash flow lines from the latest 10-K view.
+table fundamentals_annual
+	lineageTag: 60a3ca16-3d58-51f0-b129-528e8ab2ba5b
+
+	column cik
+		dataType: int64
+		isHidden
+		lineageTag: 56f3ca03-a1f2-5390-8d8a-8d617b4e0cad
+		summarizeBy: none
+		sourceColumn: cik
+
+		annotation SummarizationSetBy = Automatic
+
+	column filer_name
+		dataType: string
+		lineageTag: 0056f139-1e54-59ce-ac11-d47b489547c2
+		summarizeBy: none
+		sourceColumn: filer_name
+
+		annotation SummarizationSetBy = Automatic
+
+	column sic
+		dataType: int64
+		lineageTag: fc964ab0-f443-5555-9c76-062d1276e3bc
+		summarizeBy: none
+		sourceColumn: sic
+
+		annotation SummarizationSetBy = Automatic
+
+	column sic2
+		dataType: int64
+		lineageTag: d2c7882b-9973-5b09-bbb7-6a9d930d4b6b
+		summarizeBy: none
+		sourceColumn: sic2
+
+		annotation SummarizationSetBy = Automatic
+
+	column filer_status
+		dataType: string
+		lineageTag: 74771b45-4a14-5b34-bc96-7035dfd002f1
+		summarizeBy: none
+		sourceColumn: filer_status
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year
+		dataType: int64
+		isHidden
+		lineageTag: 691c9d94-9d18-5a2e-a619-8d44391bb206
+		summarizeBy: none
+		sourceColumn: fiscal_year
+
+		annotation SummarizationSetBy = Automatic
+
+	column fiscal_year_end
+		dataType: dateTime
+		lineageTag: 539f71fc-880c-5858-8e93-3fdf6ac48a42
+		summarizeBy: none
+		sourceColumn: fiscal_year_end
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column revenue
+		dataType: double
+		formatString: #,##0
+		lineageTag: e638a007-cf82-5236-a8f9-8f72a3976eb2
+		summarizeBy: none
+		sourceColumn: revenue
+
+		annotation SummarizationSetBy = Automatic
+
+	column gross_profit
+		dataType: double
+		formatString: #,##0
+		lineageTag: 4d14648f-74f1-5d30-be29-e5dba0c7d892
+		summarizeBy: none
+		sourceColumn: gross_profit
+
+		annotation SummarizationSetBy = Automatic
+
+	column operating_income
+		dataType: double
+		formatString: #,##0
+		lineageTag: 7f53d833-d3a6-55dd-ae37-85f422ee8064
+		summarizeBy: none
+		sourceColumn: operating_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column pretax_income
+		dataType: double
+		formatString: #,##0
+		lineageTag: d57a5ef1-7ec8-5df5-9aac-d4741948c70f
+		summarizeBy: none
+		sourceColumn: pretax_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column net_income
+		dataType: double
+		formatString: #,##0
+		lineageTag: d9579ae2-05d5-583b-abb3-2d372de5f053
+		summarizeBy: none
+		sourceColumn: net_income
+
+		annotation SummarizationSetBy = Automatic
+
+	column operating_cash_flow
+		dataType: double
+		formatString: #,##0
+		lineageTag: fc959659-583e-5f72-bc47-3f77e5ef5626
+		summarizeBy: none
+		sourceColumn: operating_cash_flow
+
+		annotation SummarizationSetBy = Automatic
+
+	column capex
+		dataType: double
+		formatString: #,##0
+		lineageTag: 479f0bf5-9e8a-5a80-ad5c-f4d0f4aaf09e
+		summarizeBy: none
+		sourceColumn: capex
+
+		annotation SummarizationSetBy = Automatic
+
+	column free_cash_flow
+		dataType: double
+		formatString: #,##0
+		lineageTag: baa6a4cd-4dd3-5df6-b628-74492655b302
+		summarizeBy: none
+		sourceColumn: free_cash_flow
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_assets
+		dataType: double
+		formatString: #,##0
+		lineageTag: 0bc5e5bb-d7bf-5b38-9c6a-7dc164dc6848
+		summarizeBy: none
+		sourceColumn: total_assets
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_assets
+		dataType: double
+		formatString: #,##0
+		lineageTag: 9958fdfe-434c-5861-8a8b-8a177b49fa69
+		summarizeBy: none
+		sourceColumn: current_assets
+
+		annotation SummarizationSetBy = Automatic
+
+	column current_liabilities
+		dataType: double
+		formatString: #,##0
+		lineageTag: e02eca1d-a7c3-5f3a-8246-f3557314a474
+		summarizeBy: none
+		sourceColumn: current_liabilities
+
+		annotation SummarizationSetBy = Automatic
+
+	column total_liabilities
+		dataType: double
+		formatString: #,##0
+		lineageTag: c6671e97-ee66-5216-bca3-ee78f3a55fb0
+		summarizeBy: none
+		sourceColumn: total_liabilities
+
+		annotation SummarizationSetBy = Automatic
+
+	column equity
+		dataType: double
+		formatString: #,##0
+		lineageTag: a3c04207-6405-5808-b80c-201752d65463
+		summarizeBy: none
+		sourceColumn: equity
+
+		annotation SummarizationSetBy = Automatic
+
+	column retained_earnings
+		dataType: double
+		formatString: #,##0
+		lineageTag: 9282fda3-0f96-5df2-a91c-66ee99090be1
+		summarizeBy: none
+		sourceColumn: retained_earnings
+
+		annotation SummarizationSetBy = Automatic
+
+	column cash
+		dataType: double
+		formatString: #,##0
+		lineageTag: 7f133968-0c94-5272-be0f-14f0ecf377e5
+		summarizeBy: none
+		sourceColumn: cash
+
+		annotation SummarizationSetBy = Automatic
+
+	column long_term_debt
+		dataType: double
+		formatString: #,##0
+		lineageTag: 6bfc2c0f-7c1d-50f1-a445-e57e1be06a81
+		summarizeBy: none
+		sourceColumn: long_term_debt
+
+		annotation SummarizationSetBy = Automatic
+
+	column working_capital
+		dataType: double
+		formatString: #,##0
+		lineageTag: 3a6ab80a-b4d9-51f3-ae43-9a4f7067b491
+		summarizeBy: none
+		sourceColumn: working_capital
+
+		annotation SummarizationSetBy = Automatic
+
+	column shares_outstanding
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 31417bf3-4b5e-58ec-9dca-ae998a3364ec
+		summarizeBy: none
+		sourceColumn: shares_outstanding
+
+		annotation SummarizationSetBy = Automatic
+
+	column source_filed
+		dataType: dateTime
+		lineageTag: d15633dd-ebcf-5f04-b9ad-67b110fc7784
+		summarizeBy: none
+		sourceColumn: source_filed
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column sector
+		dataType: string
+		lineageTag: bc43dcb7-3942-5f5e-8f5c-0a4f4eaf4a6b
+		summarizeBy: none
+		sourceColumn: sector
+
+		annotation SummarizationSetBy = Automatic
+
+	partition fundamentals_annual = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\fundamentals_annual.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

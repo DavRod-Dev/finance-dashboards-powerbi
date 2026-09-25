@@ -1,0 +1,4 @@
+expression DataFolder = "C:\Users\davro\portfolio\finance-dashboards-powerbi\data" meta [IsParameterQuery=true, Type="Text", IsParameterQueryRequired=true]
+	lineageTag: 16cb05b7-608a-5533-94aa-d4a8be134222
+
+	annotation PBI_ResultType = Text

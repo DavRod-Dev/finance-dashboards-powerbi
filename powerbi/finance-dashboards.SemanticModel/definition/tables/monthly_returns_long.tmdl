@@ -1,0 +1,38 @@
+/// Portfolio return per calendar month.
+table monthly_returns_long
+	lineageTag: 381b213b-7fc9-55fc-9dee-f6e9c938876b
+
+	column year
+		dataType: int64
+		lineageTag: be5cf243-ba66-534c-8652-4dc6ea86ac68
+		summarizeBy: none
+		sourceColumn: year
+
+		annotation SummarizationSetBy = Automatic
+
+	column month
+		dataType: int64
+		lineageTag: 11a3c304-9541-51d9-bea4-7c9fe7d6b45b
+		summarizeBy: none
+		sourceColumn: month
+
+		annotation SummarizationSetBy = Automatic
+
+	column monthly_return
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 219c2be9-6834-5b31-9b2a-a48a82fb2f61
+		summarizeBy: none
+		sourceColumn: monthly_return
+
+		annotation SummarizationSetBy = Automatic
+
+	partition monthly_returns_long = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\monthly_returns_long.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table

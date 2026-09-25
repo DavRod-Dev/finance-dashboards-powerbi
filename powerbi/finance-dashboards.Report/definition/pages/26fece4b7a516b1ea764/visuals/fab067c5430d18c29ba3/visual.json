@@ -1,0 +1,79 @@
+{
+  "$schema": "https://developer.microsoft.com/json-schemas/fabric/item/report/definition/visualContainer/2.1.0/schema.json",
+  "name": "fab067c5430d18c29ba3",
+  "position": {
+    "x": 24,
+    "y": 248,
+    "z": 1000,
+    "height": 214,
+    "width": 400,
+    "tabOrder": 1000
+  },
+  "visual": {
+    "visualType": "columnChart",
+    "drillFilterOtherVisuals": true,
+    "query": {
+      "queryState": {
+        "Category": {
+          "projections": [
+            {
+              "field": {
+                "Column": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "piotroski_f_score"
+                    }
+                  },
+                  "Property": "f_score_partial"
+                }
+              },
+              "queryRef": "piotroski_f_score.f_score_partial",
+              "nativeQueryRef": "f_score_partial",
+              "active": true
+            }
+          ]
+        },
+        "Y": {
+          "projections": [
+            {
+              "field": {
+                "Measure": {
+                  "Expression": {
+                    "SourceRef": {
+                      "Entity": "_Measures"
+                    }
+                  },
+                  "Property": "Piotroski rows"
+                }
+              },
+              "queryRef": "_Measures.Piotroski rows",
+              "nativeQueryRef": "Piotroski rows"
+            }
+          ]
+        }
+      }
+    },
+    "visualContainerObjects": {
+      "title": [
+        {
+          "properties": {
+            "show": {
+              "expr": {
+                "Literal": {
+                  "Value": "true"
+                }
+              }
+            },
+            "text": {
+              "expr": {
+                "Literal": {
+                  "Value": "'Filer-years by partial F-score (sum of available signals)'"
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  }
+}

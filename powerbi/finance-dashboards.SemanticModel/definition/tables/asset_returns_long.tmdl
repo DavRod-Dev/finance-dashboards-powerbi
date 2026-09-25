@@ -1,0 +1,50 @@
+/// Daily return per asset.
+table asset_returns_long
+	lineageTag: c1d19796-1077-59e4-b0cb-f25c367b7a71
+
+	column date
+		dataType: dateTime
+		isHidden
+		lineageTag: 09691c1d-0383-5aa0-8c9a-cd3fda22b363
+		summarizeBy: none
+		sourceColumn: date
+
+		annotation SummarizationSetBy = Automatic
+
+		annotation UnderlyingDateTimeDataType = Date
+
+	column asset_id
+		dataType: string
+		isHidden
+		lineageTag: f9b6a896-bd08-5a40-90ab-34d8f29f23b4
+		summarizeBy: none
+		sourceColumn: asset_id
+
+		annotation SummarizationSetBy = Automatic
+
+	column daily_return
+		dataType: double
+		formatString: 0.0%
+		lineageTag: 39382a6b-c36b-56e1-920d-d7e028379a79
+		summarizeBy: none
+		sourceColumn: daily_return
+
+		annotation SummarizationSetBy = Automatic
+
+	column asset
+		dataType: string
+		lineageTag: 2a202b8d-16bd-5f9b-bbbd-c737ef65675f
+		summarizeBy: none
+		sourceColumn: asset
+
+		annotation SummarizationSetBy = Automatic
+
+	partition asset_returns_long = m
+		mode: import
+		source =
+				let
+				    Source = Parquet.Document(File.Contents(DataFolder & "\asset_returns_long.parquet"))
+				in
+				    Source
+
+	annotation PBI_ResultType = Table
