@@ -1,0 +1,6 @@
+# Power BI cache and temp
+*.pbix.bak
+~$*
+# large CSV fallbacks; Parquet is the committed format
+data/*.csv
+__pycache__/
